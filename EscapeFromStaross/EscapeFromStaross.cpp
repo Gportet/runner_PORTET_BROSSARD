@@ -1,12 +1,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
+#include "Player.h"
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({ 200, 200 }), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
+    sf::RenderWindow window(sf::VideoMode({ 800, 800 }), "SFML works!");
+    Player p = Player(sf::Vector2f(100, 400));
+    window.setFramerateLimit(60);
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
@@ -16,7 +15,7 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
+        p.update(window);
         window.display();
     }
 }
