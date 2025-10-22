@@ -15,6 +15,5 @@ public:
 	void update(sf::RenderWindow& window);
 	void collision();
 	void draw(sf::RenderWindow& window);
-
 };
 

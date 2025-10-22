@@ -3,7 +3,7 @@
 
 Player::Player(sf::Vector2f position)
 {
-	m_shape = sf::RectangleShape(sf::Vector2f(100, 100));
+	m_shape = sf::RectangleShape(sf::Vector2f(75, 75));
 	m_position = position;
 	m_speed = sf::Vector2f(50, 0);
 	m_shape.setPosition(position);
@@ -16,8 +16,6 @@ Player::~Player()
 
 void Player::update(sf::RenderWindow& window)
 {
-
-	movement();
 	draw(window);
 }
 
@@ -32,25 +30,6 @@ void Player::collisionObstacle()
 	//todo
 }
 
-void Player::movement()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z))
-	{
-		m_position -= sf::Vector2f(0, 10);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-	{
-		m_position += sf::Vector2f(0, 10);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-	{
-		slide();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-	{
-		throwObject();
-	}
-}
 
 void Player::throwObject()
 {
@@ -62,6 +41,25 @@ void Player::slide()
 	//todo
 }
 
-sf::Vector2f Player::getPosition() {
-	return m_position;
+void Player::handleInput(const sf::Event& event)
+{
+	if (auto keyPressed = event.getIf<sf::Event::KeyPressed>() ) {
+		switch (keyPressed->scancode)
+		{
+		case sf::Keyboard::Scan::W:
+			m_position -= sf::Vector2f(0, 10);
+			break;
+		case sf::Keyboard::Scan::S:
+			m_position += sf::Vector2f(0, 10);
+			break;
+		case sf::Keyboard::Scan::D:
+			throwObject();
+			break;
+		case sf::Keyboard::Scan::Space:
+			slide();
+			break;
+		default:
+			break;
+		}
+	}
 }

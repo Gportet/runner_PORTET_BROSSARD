@@ -17,9 +17,9 @@ public:
 	void update(sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 	void collisionObstacle();
-	void movement();
 	void throwObject();
 	void slide();
+	void handleInput(const sf::Event& event);
 
 	sf::Vector2f getPosition();
 

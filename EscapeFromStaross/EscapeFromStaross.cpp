@@ -25,6 +25,7 @@ int main()
         {
             if (event->is<sf::Event::Closed>())
                 window.close();
+            p.handleInput(event.value());
         }
         camera.follow(p.getPosition(), 100);
         window.clear();
