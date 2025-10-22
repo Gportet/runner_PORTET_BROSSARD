@@ -63,3 +63,7 @@ void Player::handleInput(const sf::Event& event)
 		}
 	}
 }
+
+sf::Vector2f Player::getPosition() {
+	return m_position;
+}
