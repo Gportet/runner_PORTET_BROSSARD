@@ -3,6 +3,7 @@
 
 #include "trashCan.h"
 
+#include "Player.h"
 int main()
 {
 
@@ -12,6 +13,8 @@ int main()
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
+
+    Player p = Player(sf::Vector2f(100, 400));
     window.setFramerateLimit(60);
     while (window.isOpen())
     {
@@ -22,7 +25,7 @@ int main()
         }
 
         window.clear();
-        test.draw(window);
+        p.update(window);
         window.display();
     }
 }
