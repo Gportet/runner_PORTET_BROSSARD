@@ -12,6 +12,7 @@ int main()
         {
             if (event->is<sf::Event::Closed>())
                 window.close();
+            p.handleInput(event.value());
         }
 
         window.clear();

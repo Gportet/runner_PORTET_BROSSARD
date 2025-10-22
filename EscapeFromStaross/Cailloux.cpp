@@ -23,3 +23,5 @@ void Cailloux::draw(sf::RenderWindow& window) {
 	m_shape.setPosition(m_position);
 	window.draw(m_shape);
 }
+
+
