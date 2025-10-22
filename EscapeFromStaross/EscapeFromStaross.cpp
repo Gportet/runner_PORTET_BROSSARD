@@ -4,12 +4,16 @@
 #include "trashCan.h"
 #include "Player.h"
 #include "camera.h"
+#include "map.h"
 
 int main()
 {
 
     TrashCan test(sf::Vector2f(500, 500));
 
+    Map map;
+    map.loadFromFile("map.txt");
+    map.print();
 
     sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML works!");
     sf::CircleShape shape(100.f);

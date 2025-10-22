@@ -134,13 +134,19 @@
     <ClCompile Include="Cailloux.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="EscapeFromStaross.cpp" />
+    <ClCompile Include="generator.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="obstacle.cpp" />
+    <ClCompile Include="platform.cpp" />
     <ClCompile Include="trashCan.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="generator.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="obstacle.h" />
+    <ClInclude Include="platform.h" />
     <ClInclude Include="trashCan.h" />
     <ClInclude Include="Cailloux.h" />
     <ClInclude Include="Player.h" />
