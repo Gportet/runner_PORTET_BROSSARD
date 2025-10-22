@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "Cailloux.h"
+#include "ObjectManager.h"
 class Player
 {
 
@@ -14,12 +16,13 @@ public:
 	Player(sf::Vector2f position);
 	~Player();
 
-	void update(sf::RenderWindow& window);
+	void update();
 	void draw(sf::RenderWindow& window);
 	void collisionObstacle();
-	void throwObject();
+	void throwObject(ObjectManager& manager);
 	void slide();
-	void handleInput(const sf::Event& event);
+	void handleInput(const sf::Event& event, ObjectManager& manager);
+
 
 	sf::Vector2f getPosition();
 

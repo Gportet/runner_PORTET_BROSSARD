@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "Cailloux.h"
 
 Player::Player(sf::Vector2f position)
 {
@@ -14,9 +13,9 @@ Player::~Player()
 {
 }
 
-void Player::update(sf::RenderWindow& window)
+void Player::update()
 {
-	draw(window);
+	collisionObstacle();
 }
 
 void Player::draw(sf::RenderWindow& window)
@@ -31,9 +30,10 @@ void Player::collisionObstacle()
 }
 
 
-void Player::throwObject()
+void Player::throwObject(ObjectManager& manager)
 {
-	//todo
+	auto c = std::make_unique<Cailloux>(m_position + sf::Vector2f(m_shape.getSize().x / 2, m_shape.getSize().y / 2));
+	manager.addCailloux(std::move(c));
 }
 
 void Player::slide()
@@ -41,7 +41,7 @@ void Player::slide()
 	//todo
 }
 
-void Player::handleInput(const sf::Event& event)
+void Player::handleInput(const sf::Event& event, ObjectManager& manager)
 {
 	if (auto keyPressed = event.getIf<sf::Event::KeyPressed>() ) {
 		switch (keyPressed->scancode)
@@ -52,8 +52,8 @@ void Player::handleInput(const sf::Event& event)
 		case sf::Keyboard::Scan::S:
 			m_position += sf::Vector2f(0, 10);
 			break;
-		case sf::Keyboard::Scan::D:
-			throwObject();
+		case sf::Keyboard::Scan::E:
+			throwObject(manager);
 			break;
 		case sf::Keyboard::Scan::Space:
 			slide();
@@ -62,4 +62,8 @@ void Player::handleInput(const sf::Event& event)
 			break;
 		}
 	}
+}
+
+sf::Vector2f Player::getPosition() {
+	return m_position;
 }

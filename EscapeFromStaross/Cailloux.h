@@ -1,19 +1,25 @@
 #pragma once
+#include <iostream>
 #include <SFML/Graphics.hpp>
-class Cailloux
+class Cailloux 
 {
 private :
 	sf::CircleShape m_shape;
 	sf::Vector2f m_speed;
 	sf::Vector2f m_position;
+	bool m_isColliding = false;
+	float m_collisionTimer = 3.f;
 
 
 public:
 	Cailloux(sf::Vector2f position);
 	~Cailloux();
 
-	void update(sf::RenderWindow& window);
+	void update();
 	void collision();
+	void Colliding();
+	bool shouldBeRemoved() const;
 	void draw(sf::RenderWindow& window);
+	sf::FloatRect getGlobalBounds();
 };
 

@@ -4,6 +4,7 @@
 #include "trashCan.h"
 #include "Player.h"
 #include "camera.h"
+#include "ObjectManager.h"
 
 int main()
 {
@@ -14,10 +15,10 @@ int main()
     sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML works!");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
-
+    sf::Clock clock;
     Camera camera(window, window.getSize().x, window.getSize().y);
-
-    Player p = Player(sf::Vector2f(100, 400));
+    ObjectManager objManager = ObjectManager(window);
+    Player p = Player(sf::Vector2f(20, 500));
     window.setFramerateLimit(60);
     while (window.isOpen())
     {
@@ -25,11 +26,16 @@ int main()
         {
             if (event->is<sf::Event::Closed>())
                 window.close();
-            p.handleInput(event.value());
+            p.handleInput(event.value(), objManager);
         }
-        camera.follow(p.getPosition(), 100);
+         float deltaTime = clock.getElapsedTime().asSeconds();
+        //camera.follow(p.getPosition(), 100);
         window.clear();
-        p.update(window);
+        p.update();
+        objManager.update();
+        p.draw(window);
+        objManager.draw();
+
         window.display();
     }
 }
