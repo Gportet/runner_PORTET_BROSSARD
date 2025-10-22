@@ -61,3 +61,7 @@ void Player::slide()
 {
 	//todo
 }
+
+sf::Vector2f Player::getPosition() {
+	return m_position;
+}

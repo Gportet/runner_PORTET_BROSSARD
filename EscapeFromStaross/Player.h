@@ -21,4 +21,6 @@ public:
 	void throwObject();
 	void slide();
 
+	sf::Vector2f getPosition();
+
 };
