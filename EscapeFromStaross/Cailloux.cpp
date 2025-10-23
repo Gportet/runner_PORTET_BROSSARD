@@ -2,21 +2,41 @@
 
 Cailloux::Cailloux(sf::Vector2f position) {
 	m_shape = sf::CircleShape(10.f);
+	m_shape.setFillColor(sf::Color::White);
 	m_position = position;
-	m_speed = sf::Vector2f(50, 0);
+	m_speed = sf::Vector2f(10, 0);
 }
 
 Cailloux::~Cailloux()
 {
 }
 
-void Cailloux::update(sf::RenderWindow& window) {
-	m_position += m_speed;
-	draw(window);
+void Cailloux::update() {
+	std::cout << m_collisionTimer << std::endl;
+	if (!m_isColliding)
+	{
+		m_position += m_speed;
+	}
+	else
+	{
+		m_collisionTimer -= 1;
+	}
 }
 
 void Cailloux::collision()
 {
+	m_shape.setFillColor(sf::Color::Red);
+	Colliding();
+}
+
+void Cailloux::Colliding()
+{
+	m_isColliding = true;
+}
+
+bool Cailloux::shouldBeRemoved() const
+{
+	return m_isColliding && m_collisionTimer <= 0.f;
 }
 
 void Cailloux::draw(sf::RenderWindow& window) {
@@ -24,4 +44,7 @@ void Cailloux::draw(sf::RenderWindow& window) {
 	window.draw(m_shape);
 }
 
+sf::FloatRect Cailloux::getGlobalBounds() {
+	return m_shape.getGlobalBounds();
+}
 
