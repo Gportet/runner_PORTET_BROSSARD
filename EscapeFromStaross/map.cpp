@@ -9,9 +9,9 @@ bool Map::loadFromFile(const std::string& filename)
     }
 
     std::string line;
-    mapData.clear();
+    m_mapData.clear();
     while (std::getline(file, line)) {
-        mapData.push_back(line);
+        m_mapData.push_back(line);
     }
 
     file.close();
@@ -19,11 +19,11 @@ bool Map::loadFromFile(const std::string& filename)
 }
 
 const std::vector<std::string>& Map::getMapData() const {
-    return mapData;
+    return m_mapData;
 }
 
 void Map::print() const {
-    for (const auto& line : mapData) {
+    for (const auto& line : m_mapData) {
         std::cout << line << std::endl;
     }
 }

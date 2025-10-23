@@ -4,16 +4,19 @@
 #include "trashCan.h"
 #include "Player.h"
 #include "camera.h"
-#include "map.h"
+#include "generator.h"
 
 int main()
 {
+    srand(time(NULL));
+
 
     TrashCan test(sf::Vector2f(500, 500));
 
     Map map;
-    map.loadFromFile("map.txt");
-    map.print();
+    Generator generator;
+    generator.generate(map.obstacles, map.platforms);
+    std::cout << map.obstacles.size() << ' ' << map.platforms.size();
 
     sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML works!");
     sf::CircleShape shape(100.f);
@@ -31,8 +34,15 @@ int main()
                 window.close();
             p.handleInput(event.value());
         }
+        if (p.getPosition().x + 800 > generator.getNextGenX()) generator.generate(map.obstacles, map.platforms);
         camera.follow(p.getPosition(), 100);
         window.clear();
+        for (auto& platform : map.platforms) {
+            platform->draw(window);
+        }
+        for (auto& obstacle : map.obstacles) {
+            obstacle->draw(window);
+        }
         p.update(window);
         window.display();
     }

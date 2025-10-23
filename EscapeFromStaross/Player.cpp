@@ -16,6 +16,7 @@ Player::~Player()
 
 void Player::update(sf::RenderWindow& window)
 {
+	m_position += (sf::Vector2f(5, 0));
 	draw(window);
 }
 

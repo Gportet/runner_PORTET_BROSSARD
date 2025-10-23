@@ -12,10 +12,10 @@ private:
 
 public:
 
-	Platform(float x,int fInt);
+	Platform(sf::Vector2f pos);
 
 	sf::Vector2f getPosition();
 
-
+	void draw(sf::RenderWindow& window);
 };
 
