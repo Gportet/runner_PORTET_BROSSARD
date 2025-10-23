@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "camera.h"
 #include "ObjectManager.h"
+#include "Staross.h"
 
 int main()
 {
@@ -18,7 +19,8 @@ int main()
     sf::Clock clock;
     Camera camera(window, window.getSize().x, window.getSize().y);
     ObjectManager objManager = ObjectManager(window);
-    Player p = Player(sf::Vector2f(20, 500));
+    Player p = Player(sf::Vector2f(500, 500));
+    Staross s = Staross(p);
     window.setFramerateLimit(60);
     while (window.isOpen())
     {
@@ -32,8 +34,10 @@ int main()
         //camera.follow(p.getPosition(), 100);
         window.clear();
         p.update();
+        s.update();
         objManager.update();
         p.draw(window);
+        s.draw(window);
         objManager.draw();
 
         window.display();
