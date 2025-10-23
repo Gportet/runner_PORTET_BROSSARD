@@ -16,6 +16,22 @@ Player::~Player()
 void Player::update()
 {
 	collisionObstacle();
+	timerHandle();
+}
+
+void Player::addProj()
+{
+	m_projectiles += 1;
+}
+
+void Player::suppProj()
+{
+	m_projectiles >= 0 ? m_projectiles -= 1 : m_projectiles = 0;
+}
+
+bool Player::hadProj()
+{
+	return m_projectiles > 0;
 }
 
 void Player::draw(sf::RenderWindow& window)
@@ -34,12 +50,39 @@ void Player::throwObject(ObjectManager& manager)
 {
 	auto c = std::make_unique<Cailloux>(m_position + sf::Vector2f(m_shape.getSize().x / 2, m_shape.getSize().y / 2));
 	manager.addCailloux(std::move(c));
+	m_projTimer = 20.f;
 }
 
 void Player::slide()
 {
-	//todo
+	if (m_slideTimer <= 0.f) {
+		m_oldOrigin = m_shape.getOrigin();
+		float bottomY = m_position.y + m_shape.getSize().y;
+		m_position.y = bottomY - m_slideSize.y;
+		m_shape.setSize(m_slideSize);
+		m_shape.setPosition(m_position);
+		m_slideTimer = 30.f;
+		m_onSlide = true;
+	}
 }
+
+void Player::timerHandle()
+{
+	m_slideTimer -= 1.f;
+	m_projTimer -= 1.f;
+
+	if (m_slideTimer <= 0.f && m_onSlide)
+	{
+		float bottomY = m_position.y + m_shape.getSize().y;
+		m_shape.setOrigin(m_oldOrigin);
+		m_shape.setSize(m_odlSize); 
+		m_position.y = bottomY - m_odlSize.y; 
+		m_shape.setPosition(m_position);
+
+		m_onSlide = false;
+	}
+}
+
 
 void Player::handleInput(const sf::Event& event, ObjectManager& manager)
 {
@@ -53,7 +96,11 @@ void Player::handleInput(const sf::Event& event, ObjectManager& manager)
 			m_position += sf::Vector2f(0, 10);
 			break;
 		case sf::Keyboard::Scan::E:
-			throwObject(manager);
+			if (hadProj() && m_projTimer <= 0.f)
+			{
+				throwObject(manager);
+				suppProj();
+			}
 			break;
 		case sf::Keyboard::Scan::Space:
 			slide();
