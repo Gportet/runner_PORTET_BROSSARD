@@ -15,6 +15,8 @@ Player::~Player()
 
 void Player::update()
 {
+	m_position += (sf::Vector2f(5, 0));
+	draw(window);
 	collisionObstacle();
 	timerHandle();
 }
