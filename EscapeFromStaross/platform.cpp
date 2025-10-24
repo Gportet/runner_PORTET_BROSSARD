@@ -2,7 +2,7 @@
 
 Platform::Platform(sf::Vector2f pos) : m_position(pos)
 {
-	m_shape.setSize(sf::Vector2f(600, 50));
+	m_shape.setSize(sf::Vector2f(1920, 50));
 	m_shape.setFillColor(sf::Color::Red);
 	m_shape.setPosition(m_position);
 	 

@@ -8,16 +8,17 @@ float Generator::getNextGenX()
 
 void Generator::generate(std::vector<std::unique_ptr<Obstacle>>& obstacles, std::vector<std::unique_ptr<Platform>>& platforms)
 {
+    platforms.push_back(std::make_unique<Platform>(sf::Vector2f(nextGenX + 400, 900)));
     std::vector<int> floorsUsed;
     while (floorsUsed.size() < 2 + rand() % 2) {
-        int floor = rand() % 3;
+        int floor = rand() % (1,3);
         if (std::find(floorsUsed.begin(), floorsUsed.end(), floor) == floorsUsed.end()) {
             floorsUsed.push_back(floor);
         }
     }
     int safeFloor = floorsUsed[rand() % floorsUsed.size()];
     for (int floor : floorsUsed) {
-        float x = nextGenX + rand() % (m_chunkWidth - m_platformSpacing);
+        float x = nextGenX + rand() % (m_chunkWidth);
         platforms.push_back(std::make_unique<Platform>(sf::Vector2f(x, m_floorY[floor])));
 
         if (floor != safeFloor) {
@@ -26,5 +27,6 @@ void Generator::generate(std::vector<std::unique_ptr<Obstacle>>& obstacles, std:
         }
     }
     nextGenX += m_chunkWidth;
-
 }
+
+

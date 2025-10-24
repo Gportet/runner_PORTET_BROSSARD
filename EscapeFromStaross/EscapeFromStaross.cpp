@@ -37,11 +37,20 @@ int main()
         if (p.getPosition().x + 800 > generator.getNextGenX()) generator.generate(map.obstacles, map.platforms);
         camera.follow(p.getPosition(), 100);
         window.clear();
-        for (auto& platform : map.platforms) {
-            platform->draw(window);
+        for (auto it = map.platforms.begin(); it != map.platforms.end(); ) {
+            (*it)->draw(window);
+
+            if (p.getPosition().x > (*it)->getPosition().x + 4000) {
+                it = map.platforms.erase(it);
+            }
+            else {
+                ++it;
+            }
         }
-        for (auto& obstacle : map.obstacles) {
-            obstacle->draw(window);
+
+        for (auto it = map.obstacles.begin(); it != map.obstacles.end(); ) {
+            (*it)->draw(window);
+            ++it;
         }
         p.update(window);
         window.display();
