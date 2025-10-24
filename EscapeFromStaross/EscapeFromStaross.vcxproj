@@ -137,6 +137,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="generator.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="obstacle.cpp" />
     <ClCompile Include="platform.cpp" />
     <ClCompile Include="trashCan.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="generator.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="platform.h" />
     <ClInclude Include="trashCan.h" />
