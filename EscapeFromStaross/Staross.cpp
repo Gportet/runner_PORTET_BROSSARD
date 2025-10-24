@@ -1,10 +1,24 @@
 #include "Staross.h"
 
-Staross::Staross(Player p) : player(p)
+Staross::Staross(Player p, sf::RenderWindow& w) : player(p), window(w)
 {
-	m_speed = sf::Vector2f(20,0);
-	m_shapes.push_back(makeStar(sf::Vector2f(-200, -400), 40.f, 75.f, 5));//important en negatif coordonée inversé
-    std::cout << "oi";
+	m_speed = sf::Vector2f(3,0);
+    m_posDestination = randomX(300, 1000);
+    init();
+}
+
+void Staross::init() {
+
+    float yMaxWindow = window.getSize().y;
+    float spaceBetween = yMaxWindow / 7;
+    sf::Vector2f pos = sf::Vector2f(300, 30);
+    for (size_t i = 0; i < 7; i++)
+    {
+        m_shapes.push_back(makeStar(pos, 40.f, 75.f, 7));
+        pos.y += spaceBetween;
+    }
+    
+
 }
 
 //fonction pour créer les staross
@@ -28,24 +42,61 @@ sf::ConvexShape Staross::makeStar(sf::Vector2f origin, float radiusCenter, float
     star.setOutlineThickness(2.f);
 
     // Centrer autour de (0,0)
-    star.setOrigin(origin);
-
+    star.setOrigin(star.getGeometricCenter());
+    star.setPosition(origin);
     return star;
 }
 
-//fait varier la vitesse 
-void Staross::variationSpeed()
-{
 
+float Staross::randomX(float min, float max)
+{
+    std::mt19937 rng(std::random_device{}());
+    std::uniform_int_distribution<int> dist(min, max);
+    float r = dist(rng);
+    return r;
 }
+
+void Staross::rotate()
+{
+    for (auto& shape : m_shapes)
+    {
+        shape.rotate(sf::degrees(m_posDestination));
+    }
+}
+
 
 void Staross::update() {
-
+    move();
+    rotate();
 }
 
-void Staross::draw(sf::RenderWindow& window) {
-	for (auto shape : m_shapes)
+void Staross::draw() {
+
+	for (auto& shape : m_shapes)
 	{
 		window.draw(shape);
+        std::cout << shape.getPosition().x<<" " << shape.getPosition().y<<m_shapes.size() << std::endl;
 	}
 }
+
+void Staross::move()
+{
+    float xInit = m_shapes[0].getPosition().x;
+    float yInit = m_shapes[0].getPosition().x;
+    if (xInit >= m_posDestination && m_direction == 1.f || xInit <= m_posDestination && m_direction == -1.f) {
+        float xDirection = randomX(300, 1000);
+        m_direction = (xInit > xDirection) ? m_direction = -1.f : m_direction = 1.f;
+        m_posDestination = xDirection;
+    }
+
+
+    for (auto& shape : m_shapes)
+    {
+        sf::Vector2f newPos = shape.getPosition() + (m_speed * m_direction);
+        shape.setPosition(newPos);
+    }
+
+
+}
+
+

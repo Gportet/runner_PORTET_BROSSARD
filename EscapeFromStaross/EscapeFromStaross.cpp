@@ -20,7 +20,7 @@ int main()
     Camera camera(window, window.getSize().x, window.getSize().y);
     ObjectManager objManager = ObjectManager(window);
     Player p = Player(sf::Vector2f(500, 500));
-    Staross s = Staross(p);
+    Staross s = Staross(p, window);
     window.setFramerateLimit(60);
     while (window.isOpen())
     {
@@ -37,9 +37,8 @@ int main()
         s.update();
         objManager.update();
         p.draw(window);
-        s.draw(window);
+        s.draw();
         objManager.draw();
-
         window.display();
     }
 }
