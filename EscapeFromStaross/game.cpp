@@ -1,7 +1,7 @@
 #include "game.h"
 
 
-Game::Game() : window(sf::VideoMode({ 1920, 1080 }), "Escape from Staross"), camera(window, window.getSize().x, window.getSize().y) , p(sf::Vector2f(300, 800))
+Game::Game() : window(sf::VideoMode({ 1920, 1080 }), "Escape from Staross"), camera(window, window.getSize().x, window.getSize().y) , p(sf::Vector2f(300, 800)), manager(ObjectManager(window)), s(Staross(p,window))
 {
 	window.setFramerateLimit(60);
 	generator.generate(map.obstacles, map.platforms);
@@ -17,7 +17,9 @@ void Game::update()
     window.clear();
     platformManager();
     obstacleManager();
-    p.update(window);
+    p.update();
+    s.update();
+    draw();
     window.display();
 }
 
@@ -27,7 +29,7 @@ void Game::event()
     {
         if (event->is<sf::Event::Closed>())
             window.close();
-        p.handleInput(event.value());
+        p.handleInput(event.value(), manager);
     }
 }
 
@@ -53,3 +55,7 @@ void Game::obstacleManager()
     }
 }
 
+void Game::draw() {
+    p.draw(window);
+    s.draw();
+}

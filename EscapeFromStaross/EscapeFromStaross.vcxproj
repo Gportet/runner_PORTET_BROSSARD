@@ -140,6 +140,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="obstacle.cpp" />
     <ClCompile Include="platform.cpp" />
+    <ClCompile Include="Staross.cpp" />
     <ClCompile Include="trashCan.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
@@ -150,7 +151,7 @@
     <ClInclude Include="map.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="obstacle.h" />
-    <ClInclude Include="platform.h" />
+    <ClInclude Include="Staross.h" />
     <ClInclude Include="trashCan.h" />
     <ClInclude Include="Cailloux.h" />
     <ClInclude Include="Player.h" />
