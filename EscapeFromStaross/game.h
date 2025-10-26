@@ -23,6 +23,10 @@ public:
 	void obstacleManager();
 
 	void draw();
+
+	bool intersects(const sf::FloatRect& a, const sf::FloatRect& b);
+
+	void detectCollisions();
 private :
 	Map map;
 	Generator generator;
