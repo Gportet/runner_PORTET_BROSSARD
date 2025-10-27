@@ -117,8 +117,6 @@ void Staross::move()
         pos.x += step;
         shape.setPosition(pos);
     }
-
-
 }
 
 

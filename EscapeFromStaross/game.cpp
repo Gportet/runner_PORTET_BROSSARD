@@ -17,7 +17,7 @@ void Game::update()
     window.clear();
     platformManager();
     obstacleManager();
-    p.update();
+    p.update(map.platforms);
     s.update();
     draw();
     window.display();
@@ -61,22 +61,14 @@ void Game::draw() {
     s.draw();
 }
 
-bool Game::intersects(const sf::FloatRect& a, const sf::FloatRect& b) {
-    return a.position.x < b.position.x + b.size.x &&
-        a.position.x + a.size.x > b.position.x &&
-        a.position.y < b.position.y + b.size.y &&
-        a.position.y + a.size.y > b.position.y;
-}
-
-
 
 void Game::detectCollisions()
 {
     for (size_t i = 0; i < map.obstacles.size(); ++i) {
-        if (intersects(p.getShape().getGlobalBounds(), map.obstacles[i]->getGlobalBounds())) {
+        if ((p.getShape().getGlobalBounds().findIntersection(map.obstacles[i]->getShape().getGlobalBounds()))) {
             map.obstacles.erase(map.obstacles.begin() + i);
             --i;
-			p.setSpeed(p.getMaxSpeed() / 3.f);
+			p.setSpeed(p.getMaxSpeed() / 5.f);
         }
     }
 }
