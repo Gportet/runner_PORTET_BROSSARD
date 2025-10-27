@@ -15,11 +15,11 @@ private:
 	float m_direction = 1;
 	float m_posDestination;
 	sf::RenderWindow& window;
-	Player player;
+	Player& player;
 
 
 public:
-	Staross(Player p, sf::RenderWindow& window);
+	Staross(Player& p, sf::RenderWindow& window);
 
 	void update();
 	void draw();

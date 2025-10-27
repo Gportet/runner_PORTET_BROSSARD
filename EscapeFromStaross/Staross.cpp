@@ -1,6 +1,6 @@
 #include "Staross.h"
 
-Staross::Staross(Player p, sf::RenderWindow& w) : player(p), window(w)
+Staross::Staross(Player& p, sf::RenderWindow& w) : player(p), window(w)
 {
 	m_speed = sf::Vector2f(3,0);
     m_posDestination = randomX(300, 1000);
@@ -92,7 +92,7 @@ void Staross::move()
 
     for (auto& shape : m_shapes)
     {
-        sf::Vector2f newPos = shape.getPosition() + (m_speed * m_direction);
+        sf::Vector2f newPos = shape.getPosition() + (m_speed * m_direction) + player.getMaxSpeed();
         shape.setPosition(newPos);
     }
 
