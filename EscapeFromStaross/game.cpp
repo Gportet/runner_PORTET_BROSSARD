@@ -1,7 +1,7 @@
 #include "game.h"
 
 
-Game::Game() : window(sf::VideoMode({ 1920, 1080 }), "Escape from Staross"), camera(window, window.getSize().x, window.getSize().y) , p(sf::Vector2f(300, 800)), manager(ObjectManager(window)), s(Staross(p,window))
+Game::Game() : window(sf::VideoMode({ 1920, 1080 }), "Escape from Staross"), camera(window, window.getSize().x, window.getSize().y) , p(sf::Vector2f(300, 800)), manager(ObjectManager(window)), s(Staross(window, camera,p))
 {
 	window.setFramerateLimit(60);
 	generator.generate(map.obstacles, map.platforms);
