@@ -24,7 +24,6 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 
 	m_position += m_speed;
 
-	m_isOnGround = false;
 	sf::FloatRect playerBounds = m_shape.getGlobalBounds();
 
 	for (auto& platform : platforms) {
@@ -42,7 +41,7 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 		}
 	}
 
-	std::cout << m_wantsToDrop << std::endl;
+	std::cout<< m_isOnGround << std::endl;
 
 	collisionObstacle();
 	timerHandle();
@@ -137,6 +136,7 @@ void Player::handleInput(const sf::Event& event, ObjectManager& manager)
 			break;
 		case sf::Keyboard::Scan::S:
 			m_wantsToDrop = true;
+			m_isOnGround = false;
 			m_dropTimer = 10;
 			break;
 		case sf::Keyboard::Scan::E:
