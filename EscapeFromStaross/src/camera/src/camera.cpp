@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "../../camera/header/camera.hpp"
 
 Camera::Camera(sf::RenderWindow& window, float width, float height) : view(sf::FloatRect(sf::Vector2f(0.f, 0.f), sf::Vector2f(width, height))), window(window) {
     window.setView(view);

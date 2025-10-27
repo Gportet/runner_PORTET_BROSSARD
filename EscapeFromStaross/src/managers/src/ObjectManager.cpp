@@ -1,4 +1,4 @@
-#include "ObjectManager.h"
+#include "../header/ObjectManager.hpp"
 
 ObjectManager::ObjectManager(sf::RenderWindow& window) : m_window(window)
 {

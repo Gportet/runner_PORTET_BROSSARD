@@ -1,4 +1,4 @@
-#include "platform.h"
+#include "../header/platform.hpp"
 
 Platform::Platform(sf::Vector2f pos) : m_position(pos)
 {

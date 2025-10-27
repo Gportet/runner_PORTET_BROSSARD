@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "game.h"
+#include "./managers/header/game.hpp"
 
 int main()
 {

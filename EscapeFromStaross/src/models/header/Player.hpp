@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include "Cailloux.h"
-#include "ObjectManager.h"
-#include "platform.h"
+#include "../../models/header/Cailloux.hpp"
+#include "../../managers/header/ObjectManager.hpp"
+#include "../../models/header/platform.hpp"
 
 class Player
 {

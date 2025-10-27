@@ -1,5 +1,5 @@
 #pragma once
-#include "obstacle.h"
+#include "../../models/header/obstacle.hpp"
 
 class TrashCan :public Obstacle
 {

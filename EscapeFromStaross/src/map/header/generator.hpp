@@ -1,5 +1,5 @@
 #pragma once
-#include "map.h"
+#include "../../map/header/map.hpp"
 
 class Generator
 {

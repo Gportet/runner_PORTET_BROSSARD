@@ -1,10 +1,10 @@
 #pragma once
 
-#include "trashCan.h"
-#include "Player.h"
-#include "camera.h"
-#include "generator.h"
-#include "Staross.h"
+#include "../../models/header/trashCan.hpp"
+#include "../../models/header/Player.hpp"
+#include "../../camera/header/camera.hpp"
+#include "../../map/header/generator.hpp"
+#include "../../models/header/Staross.hpp"
 class Game
 {
 

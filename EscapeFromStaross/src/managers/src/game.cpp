@@ -1,4 +1,4 @@
-#include "game.h"
+#include "../header/game.hpp"
 
 
 Game::Game() : window(sf::VideoMode({ 1920, 1080 }), "Escape from Staross"), camera(window, window.getSize().x, window.getSize().y) , p(sf::Vector2f(300, 800)), manager(ObjectManager(window)), s(Staross(window, camera,p))
