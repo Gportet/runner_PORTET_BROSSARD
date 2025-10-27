@@ -25,7 +25,6 @@ void ObjectManager::checkCollisions()
 	//check collision des projectiles
     for (size_t i = 0; i < cailloux.size(); i++)
     {
-        std::cout << cailloux.size() << std::endl;
         for (size_t i = 0; i < cailloux.size(); i++)
         {
             // collision avec obstacles

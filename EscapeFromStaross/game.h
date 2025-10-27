@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "camera.h"
 #include "generator.h"
-#include "ObjectManager.h"
 #include "Staross.h"
 class Game
 {
@@ -23,8 +22,6 @@ public:
 	void obstacleManager();
 
 	void draw();
-
-	bool intersects(const sf::FloatRect& a, const sf::FloatRect& b);
 
 	void detectCollisions();
 private :

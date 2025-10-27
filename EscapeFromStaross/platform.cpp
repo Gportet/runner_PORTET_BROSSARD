@@ -16,3 +16,7 @@ sf::Vector2f Platform::getPosition()
 void Platform::draw(sf::RenderWindow& window) {
 	window.draw(m_shape);
 }
+
+sf::RectangleShape Platform::getShape() {
+	return m_shape;
+}

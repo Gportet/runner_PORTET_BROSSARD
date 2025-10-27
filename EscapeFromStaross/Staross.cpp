@@ -75,7 +75,6 @@ void Staross::draw() {
 	for (auto& shape : m_shapes)
 	{
 		window.draw(shape);
-        std::cout << shape.getPosition().x<<" " << shape.getPosition().y<<m_shapes.size() << std::endl;
 	}
 }
 
@@ -95,8 +94,6 @@ void Staross::move()
         sf::Vector2f newPos = shape.getPosition() + (m_speed * m_direction) + player.getMaxSpeed();
         shape.setPosition(newPos);
     }
-
-
 }
 
 

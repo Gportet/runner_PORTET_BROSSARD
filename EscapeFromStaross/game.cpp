@@ -17,7 +17,7 @@ void Game::update()
     window.clear();
     platformManager();
     obstacleManager();
-    p.update();
+    p.update(map.platforms);
     s.update();
     draw();
     window.display();
@@ -68,7 +68,7 @@ void Game::detectCollisions()
         if ((p.getShape().getGlobalBounds().findIntersection(map.obstacles[i]->getShape().getGlobalBounds()))) {
             map.obstacles.erase(map.obstacles.begin() + i);
             --i;
-			p.setSpeed(p.getMaxSpeed() / 4.f);
+			p.setSpeed(p.getMaxSpeed() / 5.f);
         }
     }
 }

@@ -14,14 +14,51 @@ Player::~Player()
 {
 }
 
-void Player::update()
+void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 {
+	m_verticalSpeed += m_gravity;
+	
+	if (m_verticalSpeed > 24) m_verticalSpeed = 24;
+
+	m_position.y += m_verticalSpeed;
+
 	m_position += m_speed;
+
+	m_isOnGround = false;
+	sf::FloatRect playerBounds = m_shape.getGlobalBounds();
+
+	for (auto& platform : platforms) {
+
+		sf::FloatRect platformBounds = platform->getShape().getGlobalBounds();
+
+		float playerBottom = playerBounds.position.y + playerBounds.size.y;
+		float platformTop = platformBounds.position.y;
+
+		if (playerBounds.findIntersection(platformBounds) && m_verticalSpeed > 0 && playerBottom - 25 < platformTop && !m_wantsToDrop) {
+
+			m_position.y = platformTop - playerBounds.size.y;
+			m_verticalSpeed = 0.f;
+			m_isOnGround = true;
+		}
+	}
+
+	std::cout << m_wantsToDrop << std::endl;
+
 	collisionObstacle();
 	timerHandle();
+
 	if (m_speed.x < max_speed.x)
 		m_speed.x += 0.1f;
+
+	if (m_dropTimer > 0) {
+		m_dropTimer--;
+		if (m_dropTimer == 0) {
+			m_wantsToDrop = false;
+		}
+	}
+
 }
+
 
 void Player::addProj()
 {
@@ -99,7 +136,8 @@ void Player::handleInput(const sf::Event& event, ObjectManager& manager)
 			m_position -= sf::Vector2f(0, 10);
 			break;
 		case sf::Keyboard::Scan::S:
-			m_position += sf::Vector2f(0, 10);
+			m_wantsToDrop = true;
+			m_dropTimer = 10;
 			break;
 		case sf::Keyboard::Scan::E:
 			if (hadProj() && m_projTimer <= 0.f)
@@ -108,8 +146,14 @@ void Player::handleInput(const sf::Event& event, ObjectManager& manager)
 				suppProj();
 			}
 			break;
-		case sf::Keyboard::Scan::Space:
+		case sf::Keyboard::Scan::LControl:
 			slide();
+			break;
+		case sf::Keyboard::Scan::Space:
+			if (m_isOnGround && !m_wantsToDrop) {
+				m_verticalSpeed = m_jumpSpeed;
+				m_isOnGround = false;
+			}
 			break;
 		default:
 			break;

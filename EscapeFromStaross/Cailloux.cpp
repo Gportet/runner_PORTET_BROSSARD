@@ -12,7 +12,6 @@ Cailloux::~Cailloux()
 }
 
 void Cailloux::update() {
-	std::cout << m_collisionTimer << std::endl;
 	if (!m_isColliding)
 	{
 		m_position += m_speed;
