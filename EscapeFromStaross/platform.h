@@ -17,5 +17,7 @@ public:
 	sf::Vector2f getPosition();
 
 	void draw(sf::RenderWindow& window);
+
+	sf::RectangleShape getShape();
 };
 

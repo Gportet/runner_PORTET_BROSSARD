@@ -1,9 +1,10 @@
 #include "Staross.h"
 
-Staross::Staross(Player p, sf::RenderWindow& w) : player(p), window(w)
+Staross::Staross(sf::RenderWindow& w, Camera& c, Player& p) : window(w), camera(c), player(p)
 {
-	m_speed = sf::Vector2f(3,0);
-    m_posDestination = randomX(300, 1000);
+	m_speed = sf::Vector2f(11,0);
+    randomX(5, 10);
+    updatePositionDestination();
     init();
 }
 
@@ -11,7 +12,7 @@ void Staross::init() {
 
     float yMaxWindow = window.getSize().y;
     float spaceBetween = yMaxWindow / 7;
-    sf::Vector2f pos = sf::Vector2f(300, 30);
+    sf::Vector2f pos = sf::Vector2f(100, 30);
     for (size_t i = 0; i < 7; i++)
     {
         m_shapes.push_back(makeStar(pos, 40.f, 75.f, 7));
@@ -48,19 +49,11 @@ sf::ConvexShape Staross::makeStar(sf::Vector2f origin, float radiusCenter, float
 }
 
 
-float Staross::randomX(float min, float max)
-{
-    std::mt19937 rng(std::random_device{}());
-    std::uniform_int_distribution<int> dist(min, max);
-    float r = dist(rng);
-    return r;
-}
-
 void Staross::rotate()
 {
     for (auto& shape : m_shapes)
     {
-        shape.rotate(sf::degrees(m_posDestination));
+        shape.rotate(sf::degrees(m_speed.x));
     }
 }
 
@@ -75,28 +68,52 @@ void Staross::draw() {
 	for (auto& shape : m_shapes)
 	{
 		window.draw(shape);
-        std::cout << shape.getPosition().x<<" " << shape.getPosition().y<<m_shapes.size() << std::endl;
 	}
+}
+
+void Staross::randomX(float min, float max)
+{
+    std::mt19937 rng(std::random_device{}());
+    std::uniform_int_distribution<int> dist(min, max);
+    float r = dist(rng);
+    //permet au aller-retour de ne pas etre trop petit
+    abs(m_randomPercentage - r) < 10 ? r += 10*m_direction : r;
+    m_randomPercentage = r;
+}
+
+void Staross::updatePositionDestination() {
+    sf::View view = camera.getView();
+    sf::Vector2f center = view.getCenter();
+    sf::Vector2f size = view.getSize();
+
+    float left = center.x - size.x / 2.f;
+
+    float pos = left + (m_randomPercentage / 100.f) * size.x;
+    m_posDestination = pos;
 }
 
 void Staross::move()
 {
-    float xInit = m_shapes[0].getPosition().x;
-    float yInit = m_shapes[0].getPosition().x;
-    if (xInit >= m_posDestination && m_direction == 1.f || xInit <= m_posDestination && m_direction == -1.f) {
-        float xDirection = randomX(300, 1000);
-        m_direction = (xInit > xDirection) ? m_direction = -1.f : m_direction = 1.f;
-        m_posDestination = xDirection;
+
+    updatePositionDestination();
+        float xInit = m_shapes[0].getPosition().x;
+
+    if ((m_direction > 0 && xInit >= m_posDestination) ||
+        (m_direction < 0 && xInit <= m_posDestination))
+    {
+        randomX(10, 50);
+        updatePositionDestination();
+        m_direction = (xInit > m_posDestination) ? -1.f : 1.f;
     }
-
-
     for (auto& shape : m_shapes)
     {
-        sf::Vector2f newPos = shape.getPosition() + (m_speed * m_direction);
-        shape.setPosition(newPos);
+        sf::Vector2f pos = shape.getPosition();
+
+        m_direction < 0 ? m_speed = sf::Vector2f(0, 0) : m_speed = sf::Vector2f(12,0);
+        float step = m_speed.x * m_direction;
+        pos.x += step;
+        shape.setPosition(pos);
     }
-
-
 }
 
 

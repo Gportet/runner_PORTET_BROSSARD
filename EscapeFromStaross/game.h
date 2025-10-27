@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "camera.h"
 #include "generator.h"
-#include "ObjectManager.h"
 #include "Staross.h"
 class Game
 {
@@ -23,6 +22,8 @@ public:
 	void obstacleManager();
 
 	void draw();
+
+	void detectCollisions();
 private :
 	Map map;
 	Generator generator;
