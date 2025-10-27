@@ -94,12 +94,9 @@ void Staross::updatePositionDestination() {
 
 void Staross::move()
 {
-    std::cout <<m_posDestination<< std::endl;
 
     updatePositionDestination();
         float xInit = m_shapes[0].getPosition().x;
-
-    std::cout << xInit << " " << m_posDestination << std::endl;
 
     if ((m_direction > 0 && xInit >= m_posDestination) ||
         (m_direction < 0 && xInit <= m_posDestination))

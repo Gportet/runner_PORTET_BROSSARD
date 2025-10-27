@@ -42,8 +42,6 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 		}
 	}
 
-	std::cout << m_wantsToDrop << std::endl;
-
 	collisionObstacle();
 	timerHandle();
 
