@@ -12,7 +12,7 @@ void Staross::init() {
 
     float yMaxWindow = window.getSize().y;
     float spaceBetween = yMaxWindow / 7;
-    sf::Vector2f pos = sf::Vector2f(300, 30);
+    sf::Vector2f pos = sf::Vector2f(100, 30);
     for (size_t i = 0; i < 7; i++)
     {
         m_shapes.push_back(makeStar(pos, 40.f, 75.f, 7));
@@ -76,6 +76,8 @@ void Staross::randomX(float min, float max)
     std::mt19937 rng(std::random_device{}());
     std::uniform_int_distribution<int> dist(min, max);
     float r = dist(rng);
+    //permet au aller-retour de ne pas etre trop petit
+    abs(m_randomPercentage - r) < 10 ? r += 10*m_direction : r;
     m_randomPercentage = r;
 }
 
@@ -102,12 +104,10 @@ void Staross::move()
     if ((m_direction > 0 && xInit >= m_posDestination) ||
         (m_direction < 0 && xInit <= m_posDestination))
     {
-        randomX(20, 45);
+        randomX(10, 50);
         updatePositionDestination();
         m_direction = (xInit > m_posDestination) ? -1.f : 1.f;
     }
-
-
     for (auto& shape : m_shapes)
     {
         sf::Vector2f pos = shape.getPosition();
