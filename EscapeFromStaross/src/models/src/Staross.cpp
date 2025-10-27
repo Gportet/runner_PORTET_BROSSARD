@@ -1,4 +1,4 @@
-#include "Staross.h"
+#include "../header/Staross.hpp"
 
 Staross::Staross(sf::RenderWindow& w, Camera& c, Player& p) : window(w), camera(c), player(p)
 {
@@ -109,7 +109,7 @@ void Staross::move()
     {
         sf::Vector2f pos = shape.getPosition();
 
-        m_direction < 0 ? m_speed = sf::Vector2f(0, 0) : m_speed = sf::Vector2f(12,0);
+        m_direction < 0 ? m_speed = sf::Vector2f(2, 0) : m_speed = sf::Vector2f(12,0);
         float step = m_speed.x * m_direction;
         pos.x += step;
         shape.setPosition(pos);

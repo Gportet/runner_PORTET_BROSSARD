@@ -3,8 +3,8 @@
 #include <iostream>
 #include <random>
 #include <SFML/Graphics.hpp>
-#include "camera.h"
-#include "Player.h"
+#include "../../camera/header/camera.hpp"
+#include "../../models/header/Player.hpp"
 
 class Staross
 {

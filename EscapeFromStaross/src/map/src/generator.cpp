@@ -1,4 +1,4 @@
-#include "generator.h"
+#include "../header/generator.hpp"
 
 
 float Generator::getNextGenX()

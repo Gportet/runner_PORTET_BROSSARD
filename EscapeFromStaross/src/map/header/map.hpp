@@ -3,8 +3,8 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include "trashCan.h"
-#include "platform.h"
+#include "../../models/header/trashCan.hpp"
+#include "../../models/header/platform.hpp"
 
 class Map
 {

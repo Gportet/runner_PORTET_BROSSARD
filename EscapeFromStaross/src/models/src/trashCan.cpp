@@ -1,4 +1,4 @@
-#include "trashCan.h"
+#include "../header/trashCan.hpp"
 
 TrashCan::TrashCan(sf::Vector2f position) : Obstacle(position) 
 {

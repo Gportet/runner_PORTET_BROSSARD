@@ -1,4 +1,4 @@
-#include "map.h"
+#include "../header/map.hpp"
 
 bool Map::loadFromFile(const std::string& filename)
 {
