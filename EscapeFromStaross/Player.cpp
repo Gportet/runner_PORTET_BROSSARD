@@ -43,7 +43,6 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 
 	std::cout<< m_isOnGround << std::endl;
 
-	collisionObstacle();
 	timerHandle();
 
 	if (m_speed.x < max_speed.x)
@@ -56,6 +55,12 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 		}
 	}
 
+	if (m_dashCooldown > 0) {
+		m_dashCooldown--;
+		if (m_dashCooldown == 0) {
+			m_canDash = true;
+		}
+	}
 }
 
 
@@ -80,11 +85,6 @@ void Player::draw(sf::RenderWindow& window)
 	window.draw(m_shape);
 
 
-}
-
-void Player::collisionObstacle()
-{
-	//todo
 }
 
 
@@ -132,12 +132,17 @@ void Player::handleInput(const sf::Event& event, ObjectManager& manager)
 		switch (keyPressed->scancode)
 		{
 		case sf::Keyboard::Scan::W:
-			m_position -= sf::Vector2f(0, 10);
+			if (m_isOnGround && !m_wantsToDrop) {
+				m_verticalSpeed = m_jumpSpeed;
+				m_isOnGround = false;
+			}
 			break;
 		case sf::Keyboard::Scan::S:
-			m_wantsToDrop = true;
-			m_isOnGround = false;
-			m_dropTimer = 10;
+			if (m_position.y < 700) {
+				m_wantsToDrop = true;
+				m_isOnGround = false;
+				m_dropTimer = 10;
+			}
 			break;
 		case sf::Keyboard::Scan::E:
 			if (hadProj() && m_projTimer <= 0.f)
@@ -154,6 +159,9 @@ void Player::handleInput(const sf::Event& event, ObjectManager& manager)
 				m_verticalSpeed = m_jumpSpeed;
 				m_isOnGround = false;
 			}
+			break;
+		case sf::Keyboard::Scan::D :
+			dash();
 			break;
 		default:
 			break;
@@ -181,4 +189,13 @@ sf::Vector2f Player::getMaxSpeed() {
 void Player::setSpeed(sf::Vector2f speed)
 {
 	m_speed = speed;
+}
+
+void Player::dash()
+{
+	if (m_canDash) {
+		m_position.x += m_dashDistance;
+		m_canDash = false;
+		m_dashCooldown = 60;
+	}
 }

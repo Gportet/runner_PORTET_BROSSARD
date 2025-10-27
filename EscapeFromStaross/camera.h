@@ -15,5 +15,6 @@ public:
 private:
     sf::View view;
     sf::RenderWindow& window;
+    float m_cameraSpeed = 10;
 };
 

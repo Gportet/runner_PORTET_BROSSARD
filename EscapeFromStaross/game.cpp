@@ -13,7 +13,7 @@ void Game::update()
 {
     event();
     if (p.getPosition().x + 800 > generator.getNextGenX()) generator.generate(map.obstacles, map.platforms);
-    camera.follow(p.getPosition(), 100);
+    camera.follow(p.getPosition(), 100.f);
     window.clear();
     platformManager();
     obstacleManager();
