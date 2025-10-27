@@ -9,9 +9,9 @@ class Game
 {
 
 public:
-	sf::RenderWindow window;
+	sf::RenderWindow& window;
 
-	Game();
+	Game(sf::RenderWindow& window);
 
 	void update();
 

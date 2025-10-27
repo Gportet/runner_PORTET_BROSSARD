@@ -21,7 +21,10 @@
   <ItemGroup>
     <ClInclude Include="src\camera\header\camera.hpp" />
     <ClInclude Include="src\managers\header\game.hpp" />
+    <ClInclude Include="src\managers\header\MenuManager.hpp" />
+    <ClInclude Include="src\managers\header\MenuState.hpp" />
     <ClInclude Include="src\managers\header\ObjectManager.hpp" />
+    <ClInclude Include="src\managers\header\State.hpp" />
     <ClInclude Include="src\map\header\generator.hpp" />
     <ClInclude Include="src\map\header\map.hpp" />
     <ClInclude Include="src\models\header\Cailloux.hpp" />
@@ -34,6 +37,8 @@
   <ItemGroup>
     <ClCompile Include="src\camera\src\camera.cpp" />
     <ClCompile Include="src\EscapeFromStaross.cpp" />
+    <ClCompile Include="src\managers\src\MenuManager.cpp" />
+    <ClCompile Include="src\managers\src\MenuState.cpp" />
     <ClCompile Include="src\managers\src\game.cpp" />
     <ClCompile Include="src\managers\src\ObjectManager.cpp" />
     <ClCompile Include="src\map\src\generator.cpp" />
