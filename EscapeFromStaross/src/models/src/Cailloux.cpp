@@ -1,4 +1,4 @@
-#include "Cailloux.h"
+#include "../../models/header/Cailloux.hpp"
 
 Cailloux::Cailloux(sf::Vector2f position) {
 	m_shape = sf::CircleShape(10.f);

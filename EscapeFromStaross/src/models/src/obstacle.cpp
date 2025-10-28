@@ -1,4 +1,4 @@
-#include "obstacle.h"
+#include "../header/obstacle.hpp"
 
 Obstacle::Obstacle(sf::Vector2f pos) : m_position(pos)
 {

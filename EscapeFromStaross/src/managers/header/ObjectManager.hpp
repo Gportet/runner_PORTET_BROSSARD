@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Cailloux.h"
-#include "obstacle.h"
+#include "../../models/header/Cailloux.hpp"
+#include "../../models/header/obstacle.hpp"
 
 class ObjectManager
 {

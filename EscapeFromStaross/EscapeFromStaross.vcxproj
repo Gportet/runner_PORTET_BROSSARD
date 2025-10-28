@@ -18,6 +18,33 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\camera\header\camera.hpp" />
+    <ClInclude Include="src\managers\header\game.hpp" />
+    <ClInclude Include="src\managers\header\ObjectManager.hpp" />
+    <ClInclude Include="src\map\header\generator.hpp" />
+    <ClInclude Include="src\map\header\map.hpp" />
+    <ClInclude Include="src\models\header\Cailloux.hpp" />
+    <ClInclude Include="src\models\header\obstacle.hpp" />
+    <ClInclude Include="src\models\header\platform.hpp" />
+    <ClInclude Include="src\models\header\Player.hpp" />
+    <ClInclude Include="src\models\header\Staross.hpp" />
+    <ClInclude Include="src\models\header\trashCan.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\camera\src\camera.cpp" />
+    <ClCompile Include="src\EscapeFromStaross.cpp" />
+    <ClCompile Include="src\managers\src\game.cpp" />
+    <ClCompile Include="src\managers\src\ObjectManager.cpp" />
+    <ClCompile Include="src\map\src\generator.cpp" />
+    <ClCompile Include="src\map\src\map.cpp" />
+    <ClCompile Include="src\models\src\Cailloux.cpp" />
+    <ClCompile Include="src\models\src\obstacle.cpp" />
+    <ClCompile Include="src\models\src\platform.cpp" />
+    <ClCompile Include="src\models\src\Player.cpp" />
+    <ClCompile Include="src\models\src\Staross.cpp" />
+    <ClCompile Include="src\models\src\trashCan.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -130,34 +157,6 @@
       <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Cailloux.cpp" />
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="EscapeFromStaross.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="generator.cpp" />
-    <ClCompile Include="map.cpp" />
-    <ClCompile Include="ObjectManager.cpp" />
-    <ClCompile Include="obstacle.cpp" />
-    <ClCompile Include="platform.cpp" />
-    <ClCompile Include="Staross.cpp" />
-    <ClCompile Include="trashCan.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="wall.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="game.h" />
-    <ClInclude Include="generator.h" />
-    <ClInclude Include="map.h" />
-    <ClInclude Include="ObjectManager.h" />
-    <ClInclude Include="obstacle.h" />
-    <ClInclude Include="Staross.h" />
-    <ClInclude Include="trashCan.h" />
-    <ClInclude Include="Cailloux.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="wall.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
