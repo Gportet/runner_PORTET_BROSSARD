@@ -143,6 +143,7 @@
     <ClCompile Include="Staross.cpp" />
     <ClCompile Include="trashCan.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="trashCan.h" />
     <ClInclude Include="Cailloux.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,8 +8,8 @@ Obstacle::Obstacle(sf::Vector2f pos) : m_position(pos)
 
 void Obstacle::draw(sf::RenderWindow& window)
 {
-	window.draw(m_shape);
-	//window.draw(*m_sprite);
+	//window.draw(m_shape);
+	window.draw(*m_sprite);
 
 }
 

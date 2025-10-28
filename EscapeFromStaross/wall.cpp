@@ -1,6 +1,6 @@
-#include "trashCan.h"
+#include "wall.h"
 
-TrashCan::TrashCan(sf::Vector2f position) : Obstacle(position) 
+Wall::Wall(sf::Vector2f position) : Obstacle(position)
 {
 	if (!m_texture.loadFromFile("Assets/Textures/Obstacles/trashcan.png")) {
 		std::cerr;
