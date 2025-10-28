@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="parallaxLayer.h" />
     <ClInclude Include="src\camera\header\camera.hpp" />
     <ClInclude Include="src\managers\header\game.hpp" />
     <ClInclude Include="src\managers\header\ObjectManager.hpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="src\models\header\trashCan.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="parallaxLayer.cpp" />
     <ClCompile Include="src\camera\src\camera.cpp" />
     <ClCompile Include="src\EscapeFromStaross.cpp" />
     <ClCompile Include="src\managers\src\game.cpp" />
