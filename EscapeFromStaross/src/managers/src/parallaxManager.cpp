@@ -24,8 +24,8 @@ void ParallaxManager::update(float cameraSpeed, float dt) {
     }
 }
 
-void ParallaxManager::draw(sf::RenderWindow& window, float cameraX) {
+void ParallaxManager::draw(sf::RenderWindow& window, float cameraX, float cameraSpeed) {
     for (auto& l : m_layers) {
-        l->draw(window, cameraX);
+        l->draw(window, cameraX, cameraSpeed);
     }
 }

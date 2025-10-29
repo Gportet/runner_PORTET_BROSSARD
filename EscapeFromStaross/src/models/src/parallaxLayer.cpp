@@ -16,7 +16,7 @@ ParallaxLayer::ParallaxLayer(const std::vector<std::string>& paths, float speedF
         else {
             tex->setRepeated(true);
             m_textures.push_back(tex);
-            std::cout << "OK: " << p
+            std::cout << "OK: " << p 
                 << " size=" << tex->getSize().x
                 << "x" << tex->getSize().y << std::endl;
         }
@@ -35,28 +35,29 @@ ParallaxLayer::ParallaxLayer(const std::vector<std::string>& paths, float speedF
 }
 
 void ParallaxLayer::update(float cameraSpeed, float dt) {
-    m_generationX += cameraSpeed * m_speedFactor * dt;
+    m_generationX += cameraSpeed * m_speedFactor * dt; //pas utilisé pour l'instant
 }
 
-void ParallaxLayer::draw(sf::RenderWindow& window, float cameraX) {
-    float offsetX = cameraX * m_speedFactor;
+void ParallaxLayer::draw(sf::RenderWindow& window, float cameraX, float cameraSpeed) {
+    float scaleFactor = 2.5f;
     float scaledSegmentWidth = SEGMENT_WIDTH * scaleFactor;
+    float offsetX = cameraX * m_speedFactor;
     int screenWidth = window.getSize().x;
 
-    int firstSegment = static_cast<int>(std::floor(m_generationX / scaledSegmentWidth)) - 3;
-    int numSegments = screenWidth / static_cast<int>(scaledSegmentWidth) + 10;
+    for (int i = 0; i < 8; ++i) {
+        sf::Sprite& sprite = m_spriteCache[i];
 
-    for (int i = 0; i < numSegments; ++i) {
-        int segIndex = firstSegment + i;
-        float worldX = segIndex * scaledSegmentWidth;
-        float screenX = worldX - offsetX;
+        float screenX = i * scaledSegmentWidth - offsetX;
 
-        if (screenX + scaledSegmentWidth < 0.f || screenX > screenWidth)
-            continue;
+        if (screenX + scaledSegmentWidth < 0) {
+            screenX += 8 * scaledSegmentWidth ;
+            std::cout << screenX << ' ' << cameraX << std::endl;
+        }
 
-        int texIndex = (segIndex % m_spriteCache.size() + m_spriteCache.size()) % m_spriteCache.size();
-        sf::Sprite& sprite = m_spriteCache[texIndex];
         sprite.setPosition(sf::Vector2f(screenX, m_y));
         window.draw(sprite);
     }
 }
+
+
+

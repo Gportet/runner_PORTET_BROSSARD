@@ -18,7 +18,7 @@ void Game::update()
     window.clear();
 
     parallax.update(camera.getSpeed(), dt);
-    parallax.draw(window, camera.getView().getCenter().x);
+    parallax.draw(window, camera.getView().getCenter().x, camera.getSpeed());
 
     platformManager();
     obstacleManager();

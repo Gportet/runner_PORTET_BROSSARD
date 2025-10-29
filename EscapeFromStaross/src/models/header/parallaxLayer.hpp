@@ -10,7 +10,7 @@ class ParallaxLayer {
 public:
     ParallaxLayer(const std::vector<std::string>& paths, float speedFactor, float y);
     void update(float cameraSpeed, float dt);
-    void draw(sf::RenderWindow& window, float cameraX);
+    void draw(sf::RenderWindow& window, float cameraX, float cameraSpeed);
 
 private:
     std::vector<std::string> m_paths;
