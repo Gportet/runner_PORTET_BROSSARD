@@ -24,7 +24,6 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 
 	m_position += m_speed;
 
-	m_isOnGround = false;
 	sf::FloatRect playerBounds = m_shape.getGlobalBounds();
 
 	for (auto& platform : platforms) {
@@ -42,7 +41,6 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 		}
 	}
 
-	collisionObstacle();
 	timerHandle();
 
 	if (m_speed.x < max_speed.x)
@@ -55,6 +53,12 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 		}
 	}
 
+	if (m_dashCooldown > 0) {
+		m_dashCooldown--;
+		if (m_dashCooldown == 0) {
+			m_canDash = true;
+		}
+	}
 }
 
 
@@ -79,11 +83,6 @@ void Player::draw(sf::RenderWindow& window)
 	window.draw(m_shape);
 
 
-}
-
-void Player::collisionObstacle()
-{
-	//todo
 }
 
 
@@ -125,38 +124,43 @@ void Player::timerHandle()
 }
 
 
-void Player::handleInput(const sf::Event& event, ObjectManager& manager)
-{
-	if (auto keyPressed = event.getIf<sf::Event::KeyPressed>() ) {
-		switch (keyPressed->scancode)
-		{
-		case sf::Keyboard::Scan::W:
-			m_position -= sf::Vector2f(0, 10);
-			break;
-		case sf::Keyboard::Scan::S:
-			m_wantsToDrop = true;
-			m_dropTimer = 10;
-			break;
-		case sf::Keyboard::Scan::E:
-			if (hadProj() && m_projTimer <= 0.f)
-			{
-				throwObject(manager);
-				suppProj();
-			}
-			break;
-		case sf::Keyboard::Scan::LControl:
-			slide();
-			break;
-		case sf::Keyboard::Scan::Space:
-			if (m_isOnGround && !m_wantsToDrop) {
-				m_verticalSpeed = m_jumpSpeed;
-				m_isOnGround = false;
-			}
-			break;
-		default:
-			break;
+void Player::handleInput(ObjectManager& manager)
+ {
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+		if (m_isOnGround && !m_wantsToDrop) {
+			m_verticalSpeed = m_jumpSpeed;
+			m_isOnGround = false;
 		}
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+		if (m_position.y < 700) {
+			m_wantsToDrop = true;
+			m_isOnGround = false;
+			m_dropTimer = 10;
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+		if (hadProj() && m_projTimer <= 0.f)
+		{
+			throwObject(manager);
+			suppProj();
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
+		slide();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+		if (m_isOnGround && !m_wantsToDrop) {
+			std::cout << "jump";
+			m_verticalSpeed = m_jumpSpeed;
+			m_isOnGround = false;
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+		dash();
+	}
+	
 }
 
 sf::Vector2f Player::getPosition() {
@@ -179,4 +183,13 @@ sf::Vector2f Player::getMaxSpeed() {
 void Player::setSpeed(sf::Vector2f speed)
 {
 	m_speed = speed;
+}
+
+void Player::dash()
+{
+	if (m_canDash) {
+		m_position.x += m_dashDistance;
+		m_canDash = false;
+		m_dashCooldown = 60;
+	}
 }

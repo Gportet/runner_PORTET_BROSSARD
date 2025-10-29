@@ -27,6 +27,10 @@ private:
 	bool m_wantsToDrop = false;
 	int m_dropTimer = 0;
 
+	float m_dashDistance = 100.f;
+	bool m_canDash = true;
+	float m_dashCooldown = 1.0f;
+
 
 public:
 	//constructeur
@@ -38,15 +42,16 @@ public:
 	void suppProj();
 	bool hadProj();
 	void draw(sf::RenderWindow& window);
-	void collisionObstacle();
 	void throwObject(ObjectManager& manager);
 	void slide();
 	void timerHandle();
-	void handleInput(const sf::Event& event, ObjectManager& manager);
+	void handleInput(ObjectManager& manager);
 	sf::Vector2f getPosition();
 	sf::RectangleShape getShape();
 
 	sf::Vector2f getSpeed();
 	sf::Vector2f getMaxSpeed();
 	void setSpeed(sf::Vector2f speed);
+
+	void dash();
 };

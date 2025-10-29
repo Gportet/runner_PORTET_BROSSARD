@@ -5,6 +5,8 @@
 #include "../../camera/header/camera.hpp"
 #include "../../map/header/generator.hpp"
 #include "../../models/header/Staross.hpp"
+#include "../../managers/header/parallaxManager.hpp"
+
 class Game
 {
 
@@ -32,12 +34,14 @@ public:
 	void adaptMenu();
 
 private :
+	sf::Clock clock;
+
 	Map map;
 	Generator generator;
-
+	ParallaxManager parallax;
 	Camera camera;
 	Player p;
-	ObjectManager manager;
+	ObjectManager objManager;
 	Staross s;
 
 

@@ -11,9 +11,12 @@ public:
 
     void setCenter(const sf::Vector2f& center);
 
+    float getSpeed();
+
     const sf::View& getView();
 private:
     sf::View view;
     sf::RenderWindow& window;
+    float m_cameraSpeed = 10;
 };
 

@@ -8,4 +8,5 @@ TrashCan::TrashCan(sf::Vector2f position) : Obstacle(position)
 
 	m_sprite = std::make_unique<sf::Sprite>(m_texture);
 	m_sprite->setPosition(m_position);
+	m_sprite->setScale(sf::Vector2f(0.3, 0.3));
 }

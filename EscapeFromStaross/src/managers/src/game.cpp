@@ -1,7 +1,7 @@
 #include "../header/game.hpp"
 
 
-Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), manager(ObjectManager(window)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font)
+Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font)
 {
 	
 	generator.generate(map.obstacles, map.platforms);
@@ -13,10 +13,15 @@ Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, 
 
 void Game::update()
 {
+    float dt = clock.restart().asSeconds();;
     event();
     if (p.getPosition().x + 800 > generator.getNextGenX()) generator.generate(map.obstacles, map.platforms);
-    camera.follow(p.getPosition(), 100);
+    camera.follow(p.getPosition(), 100.f);
     window.clear();
+
+    parallax.update(camera.getSpeed(), dt);
+    parallax.draw(window, camera.getView().getCenter().x);
+
     platformManager();
     obstacleManager();
     p.update(map.platforms);
@@ -30,7 +35,7 @@ void Game::event()
 {
     while (const std::optional event = window.pollEvent())
     {
-
+         std::cout << isPaused;
         if (event->is<sf::Event::Closed>())
             window.close();
         if (!isPaused)
@@ -39,9 +44,9 @@ void Game::event()
             {
                 paused();
             }
-           p.handleInput(event.value(), manager);
+           p.handleInput(objManager);
         }
-        else
+        else if(isPaused)
         {
             if (event->is<sf::Event::MouseButtonReleased>())
             {

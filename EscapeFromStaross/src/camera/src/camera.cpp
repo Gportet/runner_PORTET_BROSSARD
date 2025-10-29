@@ -4,9 +4,19 @@ Camera::Camera(sf::RenderWindow& window, float width, float height) : view(sf::F
     window.setView(view);
 }
 
-void Camera::follow(const sf::Vector2f& target, float offsetX = 100.f) {
-    view.setCenter(sf::Vector2f(target.x + offsetX, view.getCenter().y));
+void Camera::follow(const sf::Vector2f& target, float offsetX) {
+    sf::Vector2f current = view.getCenter();
+    sf::Vector2f desired = sf::Vector2f(target.x + offsetX, current.y);
+
+    float smoothing = 0.05f;
+    sf::Vector2f newCenter = current + (desired - current) * smoothing;
+
+    view.setCenter(newCenter);
     window.setView(view);
+}
+
+float Camera::getSpeed() {
+    return m_cameraSpeed;
 }
 
 void Camera::setZoom(float factor) {
