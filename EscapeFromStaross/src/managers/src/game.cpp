@@ -11,10 +11,15 @@ Game::Game() : window(sf::VideoMode({ 1920, 1080 }), "Escape from Staross"), cam
 
 void Game::update()
 {
+    float dt = clock.restart().asSeconds();;
     event();
     if (p.getPosition().x + 800 > generator.getNextGenX()) generator.generate(map.obstacles, map.platforms);
-    camera.follow(p.getPosition(), 100);
+    camera.follow(p.getPosition(), 100.f);
     window.clear();
+
+    parallax.update(camera.getSpeed(), dt);
+    parallax.draw(window, camera.getView().getCenter().x);
+
     platformManager();
     obstacleManager();
     p.update(map.platforms);
