@@ -1,12 +1,12 @@
-#include "../header/MenuManager.hpp"
+#include "../header/StateManager.hpp"
 
-MenuManager::MenuManager()
+StateManager::StateManager()
 {
 	window.create(sf::VideoMode({ 1920, 1080 }), "Escape from Staross");
 	window.setFramerateLimit(60);
 }
 
-void MenuManager::run() {
+void StateManager::run() {
     MenuState menu;
     sf::Clock clock;
 
@@ -17,8 +17,8 @@ void MenuManager::run() {
         while (auto event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>())
                 window.close();
-
             menu.handleInput(*event);
+            menu.handleClick(*event);
         }
 
         if (menu.shouldQuit()) {
@@ -29,7 +29,16 @@ void MenuManager::run() {
         if (menu.start()) {
             Game game(window); 
             while (window.isOpen()) {
-                game.update();
+                auto event = window.pollEvent();
+                if (!game.menuPause())
+                {
+                   game.update();
+                }
+                else
+                {
+                    game.displayPauseMenu(window);
+                }
+
             }
             break;
         }

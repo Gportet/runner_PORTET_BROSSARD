@@ -3,13 +3,13 @@
 #include "game.hpp"
 #include "MenuState.hpp"
 
-class MenuManager
+class StateManager
 {
 private:
 	sf::RenderWindow window;
 	bool running = true;
 public:
-	MenuManager();
+	StateManager();
 	void run();
 
 

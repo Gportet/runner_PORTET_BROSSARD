@@ -1,5 +1,5 @@
 #pragma once
-
+#include <SFML/Graphics.hpp>
 #include "../../models/header/trashCan.hpp"
 #include "../../models/header/Player.hpp"
 #include "../../camera/header/camera.hpp"
@@ -24,6 +24,13 @@ public:
 	void draw();
 
 	void detectCollisions();
+
+	void paused() { isPaused = !isPaused; }
+	bool menuPause() { return isPaused; }
+	void displayPauseMenu(sf::RenderWindow& window);
+	void initPauseMenu();
+	void adaptMenu();
+
 private :
 	Map map;
 	Generator generator;
@@ -32,6 +39,14 @@ private :
 	Player p;
 	ObjectManager manager;
 	Staross s;
+
+
+	sf::Font font;
+	sf::Text resumeText;
+	sf::Text exitText;
+	sf::RectangleShape m_buttonResume;
+	sf::RectangleShape m_buttonQuit;
+	bool isPaused = false;
 
 };
 
