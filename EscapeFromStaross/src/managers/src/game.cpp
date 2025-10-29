@@ -1,7 +1,7 @@
 #include "../header/game.hpp"
 
 
-Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font)
+Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window, camera)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font)
 {
 	
 	generator.generate(map.obstacles, map.platforms);
@@ -26,6 +26,8 @@ void Game::update()
     obstacleManager();
     p.update(map.platforms);
     s.update();
+    objManager.update();
+    objManager.draw();
     draw();
     window.display();
 	detectCollisions();
@@ -35,7 +37,6 @@ void Game::event()
 {
     while (const std::optional event = window.pollEvent())
     {
-         std::cout << isPaused;
         if (event->is<sf::Event::Closed>())
             window.close();
         if (!isPaused)

@@ -1,6 +1,6 @@
 #include "../header/ObjectManager.hpp"
 
-ObjectManager::ObjectManager(sf::RenderWindow& window) : m_window(window)
+ObjectManager::ObjectManager(sf::RenderWindow& window, Camera& camera) : m_window(window), m_camera(camera)
 {
 
 }
@@ -22,6 +22,11 @@ void ObjectManager::draw()
 
 void ObjectManager::checkCollisions()
 {
+    sf::View view = m_camera.getView();
+    sf::Vector2f center = view.getCenter();
+    sf::Vector2f size = view.getSize();
+
+    float right = center.x + size.x / 2.f;
 	//check collision des projectiles
     for (size_t i = 0; i < cailloux.size(); i++)
     {
@@ -38,7 +43,7 @@ void ObjectManager::checkCollisions()
 
             // collision avec mur droit
             sf::FloatRect bounds = cailloux[i]->getGlobalBounds();
-            if (bounds.position.x + bounds.size.x >= m_window.getSize().x-15)
+            if (bounds.position.x + bounds.size.x >= right)
             {
                 cailloux[i]->collision();
             }
