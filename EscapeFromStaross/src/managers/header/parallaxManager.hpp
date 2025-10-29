@@ -11,5 +11,7 @@ private:
 public:
     ParallaxManager();
 
+    void update(float cameraSpeed, float dt);
+
     void draw(sf::RenderWindow& window, float cameraX);
 };

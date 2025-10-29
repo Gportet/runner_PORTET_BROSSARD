@@ -27,6 +27,8 @@ public:
 
 	void detectCollisions();
 private :
+	sf::Clock clock;
+
 	Map map;
 	Generator generator;
 	ParallaxManager parallax;

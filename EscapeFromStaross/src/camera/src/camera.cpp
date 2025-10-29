@@ -15,7 +15,9 @@ void Camera::follow(const sf::Vector2f& target, float offsetX) {
     window.setView(view);
 }
 
-
+float Camera::getSpeed() {
+    return m_cameraSpeed;
+}
 
 void Camera::setZoom(float factor) {
     view.zoom(factor);
