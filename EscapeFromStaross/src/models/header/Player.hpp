@@ -45,7 +45,7 @@ public:
 	void throwObject(ObjectManager& manager);
 	void slide();
 	void timerHandle();
-	void handleInput(const sf::Event& event, ObjectManager& manager);
+	void handleInput(ObjectManager& manager);
 	sf::Vector2f getPosition();
 	sf::RectangleShape getShape();
 
