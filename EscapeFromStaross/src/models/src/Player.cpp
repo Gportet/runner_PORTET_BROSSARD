@@ -41,8 +41,6 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 		}
 	}
 
-	std::cout<< m_isOnGround << std::endl;
-
 	timerHandle();
 
 	if (m_speed.x < max_speed.x)

@@ -19,29 +19,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="parallaxLayer.h" />
     <ClInclude Include="src\camera\header\camera.hpp" />
     <ClInclude Include="src\managers\header\game.hpp" />
     <ClInclude Include="src\managers\header\ObjectManager.hpp" />
+    <ClInclude Include="src\managers\header\parallaxManager.hpp" />
     <ClInclude Include="src\map\header\generator.hpp" />
     <ClInclude Include="src\map\header\map.hpp" />
     <ClInclude Include="src\models\header\Cailloux.hpp" />
     <ClInclude Include="src\models\header\obstacle.hpp" />
+    <ClInclude Include="src\models\header\parallaxLayer.hpp" />
     <ClInclude Include="src\models\header\platform.hpp" />
     <ClInclude Include="src\models\header\Player.hpp" />
     <ClInclude Include="src\models\header\Staross.hpp" />
     <ClInclude Include="src\models\header\trashCan.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="parallaxLayer.cpp" />
     <ClCompile Include="src\camera\src\camera.cpp" />
     <ClCompile Include="src\EscapeFromStaross.cpp" />
     <ClCompile Include="src\managers\src\game.cpp" />
     <ClCompile Include="src\managers\src\ObjectManager.cpp" />
+    <ClCompile Include="src\managers\src\parallaxManager.cpp" />
     <ClCompile Include="src\map\src\generator.cpp" />
     <ClCompile Include="src\map\src\map.cpp" />
     <ClCompile Include="src\models\src\Cailloux.cpp" />
     <ClCompile Include="src\models\src\obstacle.cpp" />
+    <ClCompile Include="src\models\src\parallaxLayer.cpp" />
     <ClCompile Include="src\models\src\platform.cpp" />
     <ClCompile Include="src\models\src\Player.cpp" />
     <ClCompile Include="src\models\src\Staross.cpp" />

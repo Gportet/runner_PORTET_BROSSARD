@@ -15,6 +15,10 @@ void Game::update()
     if (p.getPosition().x + 800 > generator.getNextGenX()) generator.generate(map.obstacles, map.platforms);
     camera.follow(p.getPosition(), 100.f);
     window.clear();
+
+	//parallax.update(camera.getView().getCenter().x);
+    parallax.draw(window, camera.getView().getCenter().x);
+
     platformManager();
     obstacleManager();
     p.update(map.platforms);
