@@ -1,7 +1,7 @@
 #include "../header/game.hpp"
 
 
-Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(500, 800)), objManager(ObjectManager(window, camera)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font), gameOvertext(font), floor(800.f, 1920.f, 300.f), hud(window)
+Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(600, 800)), objManager(ObjectManager(window, camera)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font), gameOvertext(font), floor(800.f, 1920.f, 300.f), hud(window)
 {
 	
 	generator.generate(objManager, map.platforms);
@@ -13,10 +13,16 @@ void Game::reset() {
     window.clear();
     m_isPaused = false;
     m_gameOver = false;
-    p.setPos(sf::Vector2f(1000, 800));
-    s.reset();
+    objManager.reset();
+    map.platforms.clear();
+    parallax.reset();
+    parallax.init();
     generator.generate(objManager, map.platforms);
-    //window.display();
+    parallax.draw(window);
+    s.reset();
+    p.setPos(sf::Vector2f(600, 800));
+    
+    window.display();
    
 }
 

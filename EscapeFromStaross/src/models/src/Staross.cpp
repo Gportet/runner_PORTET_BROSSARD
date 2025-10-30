@@ -15,7 +15,7 @@ void Staross::init() {
 
     float yMaxWindow = window.getSize().y;
     float spaceBetween = yMaxWindow / 7;
-    sf::Vector2f pos = sf::Vector2f(100, 30);
+    sf::Vector2f pos = sf::Vector2f(10, 30);
     for (size_t i = 0; i < 5; i++)
     {
         m_sprites.push_back(makeStar(pos, 40.f, 75.f, 7));
@@ -80,7 +80,7 @@ void Staross::randomX(float min, float max)
     float r = dist(rng);
     //permet au aller-retour de ne pas etre trop petit
     abs(m_randomPercentage - r) < 10 ? r += 10*m_direction : r;
-    r >= 50 ? r = 50 : r;
+    r >= 40 ? r = 40 : r;
     m_randomPercentage = r;
 }
 
@@ -104,7 +104,7 @@ void Staross::move()
     if ((m_direction > 0 && xInit >= m_posDestination) ||
         (m_direction < 0 && xInit <= m_posDestination))
     {
-        randomX(10, 50);
+        randomX(10, 45);
         updatePositionDestination();
         m_direction = (xInit > m_posDestination) ? -1.f : 1.f;
     }

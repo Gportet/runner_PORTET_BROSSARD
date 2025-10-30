@@ -14,4 +14,6 @@ public:
     void update(float cameraSpeed, float dt);
 
     void draw(sf::RenderWindow& window);
+    void reset() { m_layers.clear(); }
+    void init();
 };

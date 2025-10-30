@@ -11,17 +11,20 @@ std::vector<std::string> ParallaxManager::buildPaths(int layerIndex, int numFold
 }
 
 ParallaxManager::ParallaxManager() {
-    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(1), -95.0, 0.f));  
-    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(2), -90.0, 50.f));
-    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(3), -30, 100.f));
-    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(4), 30, 150.f));
-    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(5), 100, 120.f));
+    init();
 }
 
 void ParallaxManager::update(float cameraSpeed, float dt) {
     for (auto& l : m_layers) {
         l->update(cameraSpeed, dt);
     }
+}
+void ParallaxManager::init() {
+    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(1), -95.0, 0.f));
+    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(2), -90.0, 50.f));
+    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(3), -30, 100.f));
+    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(4), 30, 150.f));
+    m_layers.push_back(std::make_unique<ParallaxLayer>(buildPaths(5), 100, 120.f));
 }
 
 void ParallaxManager::draw(sf::RenderWindow& window) {
