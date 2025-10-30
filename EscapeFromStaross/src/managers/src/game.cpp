@@ -169,9 +169,10 @@ void Game::detectCollisions()
         p.getShape().setPosition(sf::Vector2f(playerBounds.position.x, floor.getY() - playerBounds.size.y));
     }
 
-    //with the saw
-    for (size_t i = 0; i < s.getStars().size(); i++) {
-        if (p.getShape().getGlobalBounds().findIntersection(s.getStars()[i].getGlobalBounds()))
+    // Collision avec les hitboxes des étoiles (Staross)
+    const auto& hitboxes = s.getHitboxes();
+    for (size_t i = 0; i < hitboxes.size(); ++i) {
+        if (p.getShape().getGlobalBounds().findIntersection(hitboxes[i].getGlobalBounds()))
         {
             m_gameOver = true;
             break;

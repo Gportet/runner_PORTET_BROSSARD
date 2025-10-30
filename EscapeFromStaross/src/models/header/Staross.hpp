@@ -12,6 +12,8 @@ private:
 	sf::Texture m_texture;
 	sf::Vector2f m_speed;
 	std::vector<sf::Sprite> m_sprites;
+	// Hitboxes séparées (approximation circulaire pour chaque étoile)
+	std::vector<sf::CircleShape> m_hitboxes;
 
 	float m_direction = 1;
 	float m_posDestination;
@@ -34,5 +36,8 @@ public:
 	void updatePositionDestination();
 	void reset();
 	std::vector<sf::Sprite> getStars() { return m_sprites; }
+
+	// Accès aux hitboxes (const ref pour éviter copies)
+	const std::vector<sf::CircleShape>& getHitboxes() const { return m_hitboxes; }
 };
 
