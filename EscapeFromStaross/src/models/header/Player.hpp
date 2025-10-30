@@ -6,9 +6,12 @@
 #include "../../models/header/platform.hpp"
 #include "../../models/header/floor.hpp"
 
+
 class Player
 {
 private:
+
+
 	sf::RectangleShape m_shape;
 	sf::Texture m_jumpTexture;
 	sf::Texture m_fallTexture;
@@ -19,12 +22,7 @@ private:
 	sf::Vector2f m_position;
 	int m_projectiles = 50;
 	float m_projTimer = 0.f;
-	float m_slideTimer = 0.f;
-	sf::Vector2f m_slideSize = { 75.f,40.f };
-	sf::Vector2f m_odlSize = { 75.f,75.f };
 	sf::Vector2f m_oldOrigin;
-	bool m_onSlide = false;
-
 	float m_jumpSpeed = -25.f;       
 	float m_gravity = 1.f;           
 	float m_verticalSpeed = 0.f;  
@@ -50,8 +48,6 @@ public:
 	bool hadProj();
 	void draw(sf::RenderWindow& window);
 	void throwObject(ObjectManager& manager);
-	void slide();
-	void timerHandle();
 	void handleInput(ObjectManager& manager);
 	void setPos(sf::Vector2f pos) { m_position = pos; }
 	sf::Vector2f getPosition();

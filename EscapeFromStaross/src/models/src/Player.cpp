@@ -11,6 +11,7 @@ Player::Player(sf::Vector2f position) : m_position(position),m_jumpTexture(), m_
 	if (!m_jumpTexture.loadFromFile("Assets/Textures/Player/characters/3 Cyborg/Cyborg_doublejump.png")) {
 		throw std::runtime_error("Failed to load player texture");
 	}
+
 	
 	m_shape = sf::RectangleShape(sf::Vector2f(75, 75));
 	m_speed = sf::Vector2f(5, 0);
@@ -116,7 +117,6 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms, Flo
 		m_isOnGround = true;
 	}
 
-	timerHandle();
 
 	if (m_speed.x < max_speed.x)
 		m_speed.x += 0.1f;
@@ -163,40 +163,12 @@ void Player::draw(sf::RenderWindow& window)
 
 void Player::throwObject(ObjectManager& manager)
 {
-	auto c = std::make_unique<Cailloux>(m_position + sf::Vector2f(m_shape.getSize().x / 2, m_shape.getSize().y / 2));
+	auto c = std::make_unique<Cailloux>(m_position + sf::Vector2f(m_shape.getSize().x / 2 , m_shape.getSize().y / 2 - 50));
 	manager.addCailloux(std::move(c));
 	m_projTimer = 20.f;
 }
 
-void Player::slide()
-{
-	if (m_slideTimer <= 0.f) {
-		m_oldOrigin = m_shape.getOrigin();
-		float bottomY = m_position.y + m_shape.getSize().y;
-		m_position.y = bottomY - m_slideSize.y;
-		m_shape.setSize(m_slideSize);
-		m_shape.setPosition(m_position);
-		m_slideTimer = 30.f;
-		m_onSlide = true;
-	}
-}
 
-void Player::timerHandle()
-{
-	m_slideTimer -= 1.f;
-	m_projTimer -= 1.f;
-
-	if (m_slideTimer <= 0.f && m_onSlide)
-	{
-		float bottomY = m_position.y + m_shape.getSize().y;
-		m_shape.setOrigin(m_oldOrigin);
-		m_shape.setSize(m_odlSize); 
-		m_position.y = bottomY - m_odlSize.y; 
-		m_shape.setPosition(m_position);
-
-		m_onSlide = false;
-	}
-}
 
 
 void Player::handleInput(ObjectManager& manager)
@@ -221,9 +193,6 @@ void Player::handleInput(ObjectManager& manager)
 			throwObject(manager);
 			suppProj();
 		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
-		slide();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 		if (m_isOnGround && !m_wantsToDrop) {
