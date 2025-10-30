@@ -4,7 +4,8 @@
 class Cailloux 
 {
 private :
-	sf::CircleShape m_shape;
+	sf::Texture m_texture;
+	sf::Sprite m_sprite;
 	sf::Vector2f m_speed;
 	sf::Vector2f m_position;
 	bool m_isColliding = false;

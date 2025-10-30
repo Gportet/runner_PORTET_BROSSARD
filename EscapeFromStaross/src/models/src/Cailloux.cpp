@@ -1,8 +1,13 @@
 #include "../../models/header/Cailloux.hpp"
 
-Cailloux::Cailloux(sf::Vector2f position) {
-	m_shape = sf::CircleShape(10.f);
-	m_shape.setFillColor(sf::Color::White);
+Cailloux::Cailloux(sf::Vector2f position) : m_texture(), m_sprite(m_texture) {
+	if (!m_texture.loadFromFile("Assets/Textures/TileSet/IndustrialPack/3 Objects/Fire-extinguisher3.png")) {
+		throw std::runtime_error("Failed to load bullet texture");
+	}
+	m_sprite = sf::Sprite(m_texture);
+
+	m_sprite.setScale(sf::Vector2f(2, 2));
+	m_sprite.setOrigin(m_sprite.getLocalBounds().getCenter());
 	m_position = position;
 	m_speed = sf::Vector2f(20,0);
 }
@@ -24,7 +29,6 @@ void Cailloux::update() {
 
 void Cailloux::collision()
 {
-	m_shape.setFillColor(sf::Color::Red);
 	Colliding();
 }
 
@@ -39,11 +43,11 @@ bool Cailloux::shouldBeRemoved() const
 }
 
 void Cailloux::draw(sf::RenderWindow& window) {
-	m_shape.setPosition(m_position);
-	window.draw(m_shape);
+	m_sprite.setPosition(m_position);
+	window.draw(m_sprite);
 }
 
 sf::FloatRect Cailloux::getGlobalBounds() {
-	return m_shape.getGlobalBounds();
+	return m_sprite.getGlobalBounds();
 }
 
