@@ -52,5 +52,6 @@ private :
 	sf::RectangleShape m_buttonQuit;
 	bool isPaused = false;
 
+	Floor floor;
 };
 

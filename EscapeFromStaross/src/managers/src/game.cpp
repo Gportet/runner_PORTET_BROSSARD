@@ -1,7 +1,7 @@
 #include "../header/game.hpp"
 
 
-Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font)
+Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font), floor(800.f, 1920.f, 300.f)
 {
 	
 	generator.generate(map.obstacles, map.platforms);
@@ -113,6 +113,15 @@ void Game::detectCollisions()
 			p.setSpeed(p.getMaxSpeed() / 5.f);
         }
     }
+
+    sf::FloatRect playerBounds = p.getShape().getGlobalBounds();
+
+    if (playerBounds.position.y + playerBounds.size.y > floor.getY() &&
+        p.getSpeed().y > 0.f)
+    {
+        p.getShape().setPosition(sf::Vector2f(playerBounds.position.x, floor.getY() - playerBounds.size.y));
+    }
+
 }
 
 
