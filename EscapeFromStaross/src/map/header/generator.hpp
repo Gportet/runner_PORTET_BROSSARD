@@ -8,7 +8,7 @@ private:
 	float nextGenX = 0;
 	const int m_chunkWidth = 1920;
 	const int m_platformSpacing = 200;
-	const int m_floorY[3] = {900, 600, 300};
+	const int m_floorY[2] = {600, 300};
 
 public:
 

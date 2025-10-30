@@ -30,12 +30,14 @@
     <ClInclude Include="src\map\header\generator.hpp" />
     <ClInclude Include="src\map\header\map.hpp" />
     <ClInclude Include="src\models\header\Cailloux.hpp" />
+    <ClInclude Include="src\models\header\floor.hpp" />
     <ClInclude Include="src\models\header\obstacle.hpp" />
     <ClInclude Include="src\models\header\parallaxLayer.hpp" />
     <ClInclude Include="src\models\header\platform.hpp" />
     <ClInclude Include="src\models\header\Player.hpp" />
     <ClInclude Include="src\models\header\Staross.hpp" />
     <ClInclude Include="src\models\header\trashCan.hpp" />
+    <ClInclude Include="src\models\header\wall.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\camera\src\camera.cpp" />
@@ -48,12 +50,14 @@
     <ClCompile Include="src\map\src\generator.cpp" />
     <ClCompile Include="src\map\src\map.cpp" />
     <ClCompile Include="src\models\src\Cailloux.cpp" />
+    <ClCompile Include="src\models\src\floor.cpp" />
     <ClCompile Include="src\models\src\obstacle.cpp" />
     <ClCompile Include="src\models\src\parallaxLayer.cpp" />
     <ClCompile Include="src\models\src\platform.cpp" />
     <ClCompile Include="src\models\src\Player.cpp" />
     <ClCompile Include="src\models\src\Staross.cpp" />
     <ClCompile Include="src\models\src\trashCan.cpp" />
+    <ClCompile Include="src\models\src\wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

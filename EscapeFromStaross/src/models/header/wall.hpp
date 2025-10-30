@@ -1,5 +1,5 @@
 #pragma once
-#include "obstacle.h"
+#include "../header/obstacle.hpp"
 class Wall :
     public Obstacle
 {

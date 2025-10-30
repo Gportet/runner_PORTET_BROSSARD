@@ -1,4 +1,4 @@
-#include "wall.h"
+#include "../header/wall.hpp"
 
 Wall::Wall(sf::Vector2f position) : Obstacle(position)
 {

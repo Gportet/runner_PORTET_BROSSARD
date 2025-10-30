@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+
 #include "../../models/header/trashCan.hpp"
 #include "../../models/header/Player.hpp"
 #include "../../camera/header/camera.hpp"
@@ -50,5 +50,6 @@ private :
 	sf::RectangleShape m_buttonQuit;
 	bool isPaused = false;
 
+	Floor floor;
 };
 

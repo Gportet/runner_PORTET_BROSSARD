@@ -9,8 +9,9 @@
 class Staross
 {
 private:
+	sf::Texture m_texture;
 	sf::Vector2f m_speed;
-	std::vector<sf::ConvexShape> m_shapes;
+	std::vector<sf::Sprite> m_sprites;
 
 	float m_direction = 1;
 	float m_posDestination;
@@ -26,7 +27,7 @@ public:
 	void update();
 	void draw();
 	void move();
-	sf::ConvexShape makeStar(sf::Vector2f origin, float radiusCenter, float radius, int points);
+	sf::Sprite makeStar(sf::Vector2f origin, float radiusCenter, float radius, int points);
 	void randomX(float min, float max);
 	void rotate();
 	void init();

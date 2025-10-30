@@ -9,8 +9,9 @@
 class ParallaxLayer {
 public:
     ParallaxLayer(const std::vector<std::string>& paths, float speedFactor, float y);
+    void init();
     void update(float cameraSpeed, float dt);
-    void draw(sf::RenderWindow& window, float cameraX);
+    void draw(sf::RenderWindow& window);
 
 private:
     std::vector<std::string> m_paths;
@@ -20,8 +21,9 @@ private:
     float m_speedFactor;
     float m_y;
     float m_generationX = 0.f;
+	float m_offsetX = 0.f;
 
-    static constexpr float scaleFactor = 2.5f;
+    static constexpr float scaleFactor = 3;
     static constexpr int SEGMENT_WIDTH = 512;
     static constexpr int SEGMENT_HEIGHT = 256;
 };

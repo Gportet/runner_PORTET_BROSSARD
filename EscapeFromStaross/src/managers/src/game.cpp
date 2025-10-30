@@ -1,7 +1,7 @@
 #include "../header/game.hpp"
 
 
-Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window, camera)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font)
+Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font), floor(800.f, 1920.f, 300.f)
 {
 	
 	generator.generate(objManager, map.platforms);
@@ -17,13 +17,13 @@ void Game::update()
     event();
     if (p.getPosition().x + 800 > generator.getNextGenX()) generator.generate(objManager, map.platforms);
     camera.follow(p.getPosition(), 100.f);
+
     window.clear();
 
-    parallax.update(camera.getSpeed(), dt);
-    parallax.draw(window, camera.getView().getCenter().x);
+    parallax.draw(window);
 
     platformManager();
-    p.update(map.platforms);
+    p.update(map.platforms, floor);
     s.update();
     objManager.update();
     objManager.draw();
@@ -90,6 +90,7 @@ void Game::platformManager()
 
 
 void Game::draw() {
+	floor.draw(window);
     p.draw(window);
     s.draw();
 }
@@ -104,6 +105,15 @@ void Game::detectCollisions()
 			p.setSpeed(p.getMaxSpeed() / 5.f);
         }
     }
+
+    sf::FloatRect playerBounds = p.getShape().getGlobalBounds();
+
+    if (playerBounds.position.y + playerBounds.size.y > floor.getY() &&
+        p.getSpeed().y > 0.f)
+    {
+        p.getShape().setPosition(sf::Vector2f(playerBounds.position.x, floor.getY() - playerBounds.size.y));
+    }
+
 }
 
 
