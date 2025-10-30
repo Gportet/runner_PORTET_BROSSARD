@@ -25,11 +25,15 @@ public:
 
 	void detectCollisions();
 
-	void paused() { isPaused = !isPaused; }
-	bool menuPause() { return isPaused; }
+	void paused() { m_isPaused = !m_isPaused; }
+	bool menuPause() { return m_isPaused; }
 	void displayPauseMenu(sf::RenderWindow& window);
+	void displayGameOverMenu(sf::RenderWindow& window);
 	void initPauseMenu();
 	void adaptMenu();
+	bool gameOver() { return m_gameOver; }
+	void play() { m_gameOver = false; }
+	void reset();
 
 private :
 	sf::Clock clock;
@@ -41,15 +45,16 @@ private :
 	Player p;
 	ObjectManager objManager;
 	Staross s;
-	bool gameOver = false;
+
 
 	sf::Font font;
 	sf::Text resumeText;
 	sf::Text exitText;
+	sf::Text gameOvertext;
 	sf::RectangleShape m_buttonResume;
 	sf::RectangleShape m_buttonQuit;
-	bool isPaused = false;
-
+	bool m_isPaused = false;
+	bool m_gameOver = false;
 	Floor floor;
 };
 

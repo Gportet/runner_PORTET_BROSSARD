@@ -8,6 +8,8 @@ float Generator::getNextGenX()
 
 void Generator::generate(ObjectManager& objManager, std::vector<std::unique_ptr<Platform>>& platforms)
 {
+    platforms.clear();
+    objManager.reset();
     std::vector<int> floorsUsed;
     while (floorsUsed.size() < 2 + rand() % 2) {
         int floor = rand() % (1,2);

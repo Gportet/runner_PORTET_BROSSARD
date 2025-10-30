@@ -53,6 +53,7 @@ public:
 	void slide();
 	void timerHandle();
 	void handleInput(ObjectManager& manager);
+	void setPos(sf::Vector2f pos) { m_position = pos; }
 	sf::Vector2f getPosition();
 	sf::RectangleShape getShape();
 

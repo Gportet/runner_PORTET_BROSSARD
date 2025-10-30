@@ -10,8 +10,8 @@ private:
 	sf::Font font;
 	sf::Text playText;
 	sf::Text exitText;
-	bool startGame = false;
-	bool quit = false;
+	bool m_startGame = false;
+	bool m_quit = false;
 	sf::RectangleShape m_buttonPlay;
 	sf::RectangleShape m_buttonQuit;
 
@@ -21,8 +21,8 @@ public:
 	void handleInput(const sf::Event& event) override;
 	void update() override;
 	void render(sf::RenderWindow& window) override;
-	bool start() const { return startGame;}
-	bool shouldQuit() const { return quit; }
+	bool start() const { return m_startGame;}
+	bool shouldQuit() const { return m_quit; }
 	void handleClick(const sf::Event& event);
 
 

@@ -25,6 +25,11 @@ void Staross::init() {
 
 }
 
+void Staross::reset() {
+    m_sprites.clear();
+    init();
+}
+
 sf::Sprite Staross::makeStar(sf::Vector2f origin, float radiusCenter, float radiusOut, int points )
 {
     sf::Sprite star = sf::Sprite(m_texture);

@@ -19,6 +19,7 @@ public :
 	void addCailloux(std::unique_ptr<Cailloux> c);
 	void addObstacle(std::unique_ptr<Obstacle> o);
 	void draw();
+	void reset() { obstacles.clear(); }
 	std::vector<std::unique_ptr<Obstacle>>& getObstacles() { return obstacles; }
 };
 

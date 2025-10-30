@@ -28,13 +28,18 @@ void StateManager::run() {
 
         if (menu.start()) {
             Game game(window); 
+            game.play();
             while (window.isOpen()) {
                 auto event = window.pollEvent();
-                if (!game.menuPause())
+
+                if (!game.menuPause() && !game.gameOver())
                 {
                    game.update();
                 }
-                else
+                else if (game.gameOver() && !game.menuPause()) {
+                    game.displayGameOverMenu(window);
+                }
+                else if (game.menuPause() && !game.gameOver())
                 {
                     game.displayPauseMenu(window);
                 }

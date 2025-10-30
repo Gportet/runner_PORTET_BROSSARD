@@ -11,12 +11,14 @@ MenuState::MenuState()
     playText.setCharacterSize(48);
     playText.setFillColor(sf::Color::White);
     playText.setPosition(sf::Vector2f(920.f, 400.f));
+
     exitText.setFont(font);
     exitText.setString("Exit");
     exitText.setCharacterSize(48);
     exitText.setFillColor(sf::Color::White);
     exitText.setPosition(sf::Vector2f(920.f, 500.f));
 
+ 
 
     m_buttonPlay = sf::RectangleShape(sf::Vector2f(120, 50));
     m_buttonPlay.setFillColor(sf::Color::Transparent);
@@ -34,9 +36,9 @@ MenuState::~MenuState() = default;
 
 void MenuState::handleInput(const sf::Event& event) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
-        startGame = true;
+        m_startGame = true;
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
-        quit = true;
+        m_quit = true;
 }
 
 void MenuState::handleClick(const sf::Event& event)
@@ -48,16 +50,17 @@ void MenuState::handleClick(const sf::Event& event)
         const sf::Vector2f& mousePos = sf::Vector2f(static_cast<float>(mousePosPI.x), static_cast<float>(mousePosPI.y));
         if (mouse->button == sf::Mouse::Button::Left && m_buttonPlay.getGlobalBounds().contains(mousePos))
         {
-            startGame = true;
+            m_startGame = true;
         }
         else if (mouse->button == sf::Mouse::Button::Left && m_buttonQuit.getGlobalBounds().contains(mousePos))
         {
-            quit = true;
+            m_quit = true;
         }
 
     }
 
 }
+
 
 void MenuState::update()  {}
 

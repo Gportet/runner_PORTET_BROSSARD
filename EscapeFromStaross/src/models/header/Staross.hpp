@@ -32,5 +32,7 @@ public:
 	void rotate();
 	void init();
 	void updatePositionDestination();
+	void reset();
+	std::vector<sf::Sprite> getStars() { return m_sprites; }
 };
 

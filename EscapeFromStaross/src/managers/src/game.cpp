@@ -1,7 +1,7 @@
 #include "../header/game.hpp"
 
 
-Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window, camera)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font), floor(800.f, 1920.f, 300.f)
+Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(500, 800)), objManager(ObjectManager(window, camera)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font), gameOvertext(font), floor(800.f, 1920.f, 300.f)
 {
 	
 	generator.generate(objManager, map.platforms);
@@ -9,6 +9,16 @@ Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, 
 
 }
 
+void Game::reset() {
+    window.clear();
+    m_isPaused = false;
+    m_gameOver = false;
+    p.setPos(sf::Vector2f(1000, 800));
+    s.reset();
+    generator.generate(objManager, map.platforms);
+    //window.display();
+   
+}
 
 
 void Game::update()
@@ -38,7 +48,7 @@ void Game::event()
     {
         if (event->is<sf::Event::Closed>())
             window.close();
-        if (!isPaused)
+        if (!m_isPaused && !m_gameOver)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
             {
@@ -46,7 +56,31 @@ void Game::event()
             }
            p.handleInput(objManager);
         }
-        else if(isPaused)
+        else if (m_gameOver) {
+            if (event->is<sf::Event::MouseButtonReleased>())
+            {
+                const auto& mouse = event->getIf<sf::Event::MouseButtonReleased>();
+                const auto& mousePosPI = mouse->position;
+                const sf::Vector2f& mousePos = sf::Vector2f(static_cast<float>(mousePosPI.x), static_cast<float>(mousePosPI.y));
+                if (mouse->button == sf::Mouse::Button::Left && m_buttonResume.getGlobalBounds().contains(mousePos))
+                {
+                    reset();
+                }
+                if (mouse->button == sf::Mouse::Button::Left && m_buttonQuit.getGlobalBounds().contains(mousePos))
+                {
+                    window.close();
+                }
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+            {
+                window.close();
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+            {
+                reset();
+            }
+        }
+        else if(m_isPaused)
         {
             if (event->is<sf::Event::MouseButtonReleased>())
             {
@@ -98,6 +132,7 @@ void Game::draw() {
 
 void Game::detectCollisions()
 {
+    //Obstacles
     for (size_t i = 0; i <objManager.getObstacles().size(); ++i) {
         if ((p.getShape().getGlobalBounds().findIntersection(objManager.getObstacles()[i]->getShape().getGlobalBounds()))) {
             objManager.getObstacles().erase(objManager.getObstacles().begin() + i);
@@ -114,6 +149,28 @@ void Game::detectCollisions()
         p.getShape().setPosition(sf::Vector2f(playerBounds.position.x, floor.getY() - playerBounds.size.y));
     }
 
+    //with the saw
+    for (size_t i = 0; i < s.getStars().size(); i++) {
+        if (p.getShape().getGlobalBounds().findIntersection(s.getStars()[i].getGlobalBounds()))
+        {
+            m_gameOver = true;
+            break;
+        }
+    }
+
+}
+void Game::displayGameOverMenu(sf::RenderWindow& window)
+{
+    adaptMenu();
+    event();
+    resumeText.setString("Restart");
+    window.clear();
+    window.draw(gameOvertext);
+    window.draw(resumeText);
+    window.draw(exitText);
+    window.draw(m_buttonResume);
+    window.draw(m_buttonQuit);
+    window.display();
 }
 
 
@@ -121,6 +178,7 @@ void Game::displayPauseMenu(sf::RenderWindow& window)
 {
     adaptMenu();
     event();
+    resumeText.setString("Resume");
     window.clear();
     window.draw(resumeText);
     window.draw(exitText);
@@ -152,6 +210,13 @@ void Game::initPauseMenu()
     m_buttonQuit = sf::RectangleShape(sf::Vector2f(120, 50));
     m_buttonQuit.setFillColor(sf::Color::Transparent);
     m_buttonQuit.setPosition(sf::Vector2f(920, 500));
+
+
+    gameOvertext.setFont(font);
+    gameOvertext.setString("GAME OVER");
+    gameOvertext.setCharacterSize(60);
+    gameOvertext.setFillColor(sf::Color::Red);
+
 }
 
 void Game::adaptMenu()
@@ -164,9 +229,13 @@ void Game::adaptMenu()
     sf::Vector2f posButtonResume = sf::Vector2f(left + 920, 400);
     resumeText.setPosition(posButtonResume);
     m_buttonResume.setPosition(posButtonResume);
+
     sf::Vector2f posButtonQuit = sf::Vector2f(left + 920, 500);
     exitText.setPosition(posButtonQuit);
     m_buttonQuit.setPosition(posButtonQuit);
+
+    sf::Vector2f pos = sf::Vector2f(left +880,200);
+    gameOvertext.setPosition(pos);
 }
 
 
