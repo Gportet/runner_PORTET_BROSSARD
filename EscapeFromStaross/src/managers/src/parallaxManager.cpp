@@ -32,3 +32,9 @@ void ParallaxManager::draw(sf::RenderWindow& window) {
         l->draw(window);
     }
 }
+
+void ParallaxManager::reset() {
+    for (auto& l : m_layers) {
+        l->reset();
+	}
+}

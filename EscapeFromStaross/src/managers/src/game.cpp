@@ -10,20 +10,32 @@ Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, 
 }
 
 void Game::reset() {
-    window.clear();
+
     m_isPaused = false;
     m_gameOver = false;
+
+
     objManager.reset();
+
+
     map.platforms.clear();
+
+
     parallax.reset();
     parallax.init();
+
+
+	generator.reset();
     generator.generate(objManager, map.platforms);
-    parallax.draw(window);
+
     s.reset();
+
+
+    p.reset();
     p.setPos(sf::Vector2f(600, 800));
-    
-    window.display();
-   
+    p.setSpeed(sf::Vector2f(5.f, 0.f));
+
+    clock.restart();
 }
 
 

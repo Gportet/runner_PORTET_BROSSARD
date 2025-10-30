@@ -26,6 +26,25 @@ Player::~Player()
 {
 }
 
+void Player::reset()
+{
+	// Remettre vitesses et états internes à des valeurs sûres
+	m_speed = sf::Vector2f(0.f, 0.f);
+	m_verticalSpeed = 0.f;
+	m_isOnGround = false;
+	m_wantsToDrop = false;
+	m_dropTimer = 0;
+	m_projTimer = 0.f;
+	m_slideTimer = 0.f;
+	m_onSlide = false;
+	m_projectiles = 50; 
+	m_dashCooldown = 1.0f;
+	m_canDash = true;
+
+	animationClock.restart();
+
+}
+
 void Player::animate()
 {
 	int frameNb = 6;

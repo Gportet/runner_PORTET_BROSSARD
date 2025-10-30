@@ -17,7 +17,7 @@ private:
 	sf::Vector2f m_speed;
 	sf::Vector2f max_speed;
 	sf::Vector2f m_position;
-	int m_projectiles = 50000;
+	int m_projectiles = 50;
 	float m_projTimer = 0.f;
 	float m_slideTimer = 0.f;
 	sf::Vector2f m_slideSize = { 75.f,40.f };
@@ -62,4 +62,7 @@ public:
 	void setSpeed(sf::Vector2f speed);
 
 	void dash();
+
+	// Réinitialise l'état interne du joueur (vitesse, timers, flags)
+	void reset();
 };

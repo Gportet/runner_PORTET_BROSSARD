@@ -35,7 +35,11 @@ ParallaxLayer::ParallaxLayer(const std::vector<std::string>& paths, float speedF
 	init();
 }
 
-
+void ParallaxLayer::reset() {
+    m_generationX = 0.f;
+    m_offsetX = 0.f;
+    init();
+}
 
 
 void ParallaxLayer::update(float cameraSpeed, float dt) {

@@ -13,6 +13,8 @@ public:
     void update(float cameraSpeed, float dt);
     void draw(sf::RenderWindow& window);
 
+    void reset();
+
 private:
     std::vector<std::string> m_paths;
     std::vector<std::shared_ptr<sf::Texture>> m_textures;

@@ -14,6 +14,6 @@ public:
 
 	float getNextGenX();
 	void generate(ObjectManager& objManager, std::vector<std::unique_ptr<Platform>>&);
-
+	void reset() { nextGenX = 0; }
 };
 
