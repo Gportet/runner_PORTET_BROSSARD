@@ -68,14 +68,12 @@ void ParallaxLayer::draw(sf::RenderWindow& window) {
         sprite.move(sf::Vector2f(dxWorld, 0.f));
     }
 
-    // 2. Trouver la position la plus à droite (en monde)
     float maxX = -1e9f;
     for (auto& sprite : m_spriteCache) {
         if (sprite.getPosition().x > maxX)
             maxX = sprite.getPosition().x;
     }
 
-    // 3. Replacer uniquement les sprites sortis à gauche de l’écran
     for (auto& sprite : m_spriteCache) {
         if (sprite.getPosition().x + Wworld < worldLeft) {
             sprite.setPosition(sf::Vector2f(maxX + Wworld, m_y));
@@ -83,7 +81,7 @@ void ParallaxLayer::draw(sf::RenderWindow& window) {
         }
     }
 
-    // 4. Dessiner
+
     for (auto& sprite : m_spriteCache) {
         window.draw(sprite);
     }

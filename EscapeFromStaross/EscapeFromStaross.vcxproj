@@ -20,6 +20,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\camera\header\hud.hpp" />
     <ClInclude Include="src\camera\header\camera.hpp" />
     <ClInclude Include="src\managers\header\game.hpp" />
     <ClInclude Include="src\managers\header\StateManager.hpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="src\models\header\wall.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\camera\src\hud.cpp" />
     <ClCompile Include="src\camera\src\camera.cpp" />
     <ClCompile Include="src\EscapeFromStaross.cpp" />
     <ClCompile Include="src\managers\src\StateManager.cpp" />

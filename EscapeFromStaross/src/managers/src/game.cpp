@@ -1,7 +1,7 @@
 #include "../header/game.hpp"
 
 
-Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window, camera)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font), floor(800.f, 1920.f, 300.f)
+Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window, camera)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font), floor(800.f, 1920.f, 300.f), hud(window)
 {
 	
 	generator.generate(objManager, map.platforms);
@@ -25,6 +25,7 @@ void Game::update()
     platformManager();
     p.update(map.platforms, floor);
     s.update();
+    hud.update(30, (p.getPosition().x - 300));
     objManager.update();
     objManager.draw();
     draw();
@@ -93,6 +94,7 @@ void Game::draw() {
 	floor.draw(window);
     p.draw(window);
     s.draw();
+    hud.draw();
 }
 
 

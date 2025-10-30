@@ -6,6 +6,7 @@
 #include "../../map/header/generator.hpp"
 #include "../../models/header/Staross.hpp"
 #include "../../managers/header/parallaxManager.hpp"
+#include "../../camera/header/hud.hpp"
 
 class Game
 {
@@ -51,5 +52,6 @@ private :
 	bool isPaused = false;
 
 	Floor floor;
+	HUD hud;
 };
 
