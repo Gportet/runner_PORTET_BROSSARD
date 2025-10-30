@@ -1,6 +1,6 @@
 #pragma once
 #include "../../map/header/map.hpp"
-
+#include "../../managers/header/ObjectManager.hpp"
 class Generator
 {
 private:
@@ -13,7 +13,7 @@ private:
 public:
 
 	float getNextGenX();
-	void generate(std::vector<std::unique_ptr<Obstacle>>&, std::vector<std::unique_ptr<Platform>>&);
+	void generate(ObjectManager& objManager, std::vector<std::unique_ptr<Platform>>&);
 
 };
 

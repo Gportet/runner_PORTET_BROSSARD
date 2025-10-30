@@ -5,12 +5,14 @@
 #include <string>
 #include "../../models/header/trashCan.hpp"
 #include "../../models/header/platform.hpp"
+#include "../../managers/header/ObjectManager.hpp"
 
 class Map
 {
 private:
 
 	std::vector<std::string> m_mapData;
+
 
 
 public:
@@ -20,8 +22,6 @@ public:
 	void print() const;
 
 
-
-	std::vector<std::unique_ptr<Obstacle>> obstacles;
 	std::vector<std::unique_ptr<Platform>> platforms;
 
 };

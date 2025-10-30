@@ -152,7 +152,6 @@ void Player::handleInput(ObjectManager& manager)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 		if (m_isOnGround && !m_wantsToDrop) {
-			std::cout << "jump";
 			m_verticalSpeed = m_jumpSpeed;
 			m_isOnGround = false;
 		}

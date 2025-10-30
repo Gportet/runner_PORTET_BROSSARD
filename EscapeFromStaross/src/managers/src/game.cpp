@@ -1,10 +1,10 @@
 #include "../header/game.hpp"
 
 
-Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font)
+Game::Game(sf::RenderWindow& w) : window(w), camera(window, window.getSize().x, window.getSize().y), p(sf::Vector2f(300, 800)), objManager(ObjectManager(window, camera)), s(Staross(window, camera, p)), font(), resumeText(font), exitText(font)
 {
 	
-	generator.generate(map.obstacles, map.platforms);
+	generator.generate(objManager, map.platforms);
     initPauseMenu();
 
 }
@@ -15,7 +15,7 @@ void Game::update()
 {
     float dt = clock.restart().asSeconds();;
     event();
-    if (p.getPosition().x + 800 > generator.getNextGenX()) generator.generate(map.obstacles, map.platforms);
+    if (p.getPosition().x + 800 > generator.getNextGenX()) generator.generate(objManager, map.platforms);
     camera.follow(p.getPosition(), 100.f);
     window.clear();
 
@@ -23,9 +23,10 @@ void Game::update()
     parallax.draw(window, camera.getView().getCenter().x);
 
     platformManager();
-    obstacleManager();
     p.update(map.platforms);
     s.update();
+    objManager.update();
+    objManager.draw();
     draw();
     window.display();
 	detectCollisions();
@@ -35,7 +36,6 @@ void Game::event()
 {
     while (const std::optional event = window.pollEvent())
     {
-         std::cout << isPaused;
         if (event->is<sf::Event::Closed>())
             window.close();
         if (!isPaused)
@@ -88,13 +88,6 @@ void Game::platformManager()
     }
 }
 
-void Game::obstacleManager()
-{
-    for (auto it = map.obstacles.begin(); it != map.obstacles.end(); ) {
-        (*it)->draw(window);
-        ++it;
-    }
-}
 
 void Game::draw() {
     p.draw(window);
@@ -104,9 +97,9 @@ void Game::draw() {
 
 void Game::detectCollisions()
 {
-    for (size_t i = 0; i < map.obstacles.size(); ++i) {
-        if ((p.getShape().getGlobalBounds().findIntersection(map.obstacles[i]->getShape().getGlobalBounds()))) {
-            map.obstacles.erase(map.obstacles.begin() + i);
+    for (size_t i = 0; i <objManager.getObstacles().size(); ++i) {
+        if ((p.getShape().getGlobalBounds().findIntersection(objManager.getObstacles()[i]->getShape().getGlobalBounds()))) {
+            objManager.getObstacles().erase(objManager.getObstacles().begin() + i);
             --i;
 			p.setSpeed(p.getMaxSpeed() / 5.f);
         }

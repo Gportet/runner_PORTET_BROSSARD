@@ -4,7 +4,7 @@ Cailloux::Cailloux(sf::Vector2f position) {
 	m_shape = sf::CircleShape(10.f);
 	m_shape.setFillColor(sf::Color::White);
 	m_position = position;
-	m_speed = sf::Vector2f(10, 0);
+	m_speed = sf::Vector2f(20,0);
 }
 
 Cailloux::~Cailloux()
