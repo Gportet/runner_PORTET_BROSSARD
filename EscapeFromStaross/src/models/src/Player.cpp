@@ -11,6 +11,7 @@ Player::Player(sf::Vector2f position) : m_position(position),m_jumpTexture(), m_
 	if (!m_jumpTexture.loadFromFile("Assets/Textures/Player/characters/3 Cyborg/Cyborg_doublejump.png")) {
 		throw std::runtime_error("Failed to load player texture");
 	}
+
 	
 	m_shape = sf::RectangleShape(sf::Vector2f(75, 75));
 	m_speed = sf::Vector2f(5, 0);
@@ -97,7 +98,6 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms, Flo
 		m_isOnGround = true;
 	}
 
-	timerHandle();
 
 	if (m_speed.x < max_speed.x)
 		m_speed.x += 0.1f;
@@ -174,9 +174,6 @@ void Player::handleInput(ObjectManager& manager)
 			throwObject(manager);
 			suppProj();
 		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
-		slide();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 		if (m_isOnGround && !m_wantsToDrop) {

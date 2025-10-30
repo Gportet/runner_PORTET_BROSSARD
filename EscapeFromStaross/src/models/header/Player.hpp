@@ -6,14 +6,11 @@
 #include "../../models/header/platform.hpp"
 #include "../../models/header/floor.hpp"
 
-#include <SFML/Audio.hpp>
 
 class Player
 {
 private:
 
-	sf::SoundBuffer dashBuffer;
-	sf::Sound dashSound;
 
 	sf::RectangleShape m_shape;
 	sf::Texture m_jumpTexture;
