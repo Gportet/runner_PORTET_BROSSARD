@@ -1,21 +1,44 @@
 #include "../header/Player.hpp"
 
-Player::Player(sf::Vector2f position)
+Player::Player(sf::Vector2f position) : m_position(position), m_texture(), m_sprite(m_texture)
 {
+	if (!m_texture.loadFromFile("Assets/Textures/Player/characters/3 Cyborg/Cyborg_run.png")) {
+		throw std::runtime_error("Failed to load player texture");
+	}
 	m_shape = sf::RectangleShape(sf::Vector2f(75, 75));
-	m_position = position;
 	m_speed = sf::Vector2f(5, 0);
 	max_speed = sf::Vector2f(10, 0);
 	m_shape.setPosition(position);
 
+	m_sprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 0),sf::Vector2i( 48, 48)));
+	m_sprite.setScale(sf::Vector2f(3.f, 3.f));
+	m_sprite.setOrigin(sf::Vector2f(2.f, 24.f));
 }
 
 Player::~Player()
 {
 }
 
-void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
+void Player::animate()
 {
+	float elapsed = animationClock.getElapsedTime().asMilliseconds();
+	if (elapsed > 100.f) {
+		sf::IntRect rect = m_sprite.getTextureRect();
+		rect.position.x += 48;
+		if (rect.position.x >= 48 * 6) {
+			rect.position.x = 0;
+		}
+		m_sprite.setTextureRect(rect);
+		animationClock.restart();
+	}
+	
+}
+
+void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms, Floor& floor)
+{
+	animate();
+
+
 	m_verticalSpeed += m_gravity;
 	
 	if (m_verticalSpeed > 24) m_verticalSpeed = 24;
@@ -25,6 +48,8 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 	m_position += m_speed;
 
 	sf::FloatRect playerBounds = m_shape.getGlobalBounds();
+
+	// Collision avec les plateformes, obligé de le mettre ici car doit être fait pendant le déplacement
 
 	for (auto& platform : platforms) {
 
@@ -39,6 +64,12 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms)
 			m_verticalSpeed = 0.f;
 			m_isOnGround = true;
 		}
+	}
+
+	if (m_position.y + playerBounds.size.y > floor.getY() && m_verticalSpeed > 0.f) {
+		m_position.y = floor.getY() - playerBounds.size.y;
+		m_verticalSpeed = 0.f;
+		m_isOnGround = true;
 	}
 
 	timerHandle();
@@ -80,8 +111,8 @@ bool Player::hadProj()
 void Player::draw(sf::RenderWindow& window)
 { 
 	m_shape.setPosition(m_position);
-	window.draw(m_shape);
-
+	m_sprite.setPosition(m_position);
+	window.draw(m_sprite);
 
 }
 

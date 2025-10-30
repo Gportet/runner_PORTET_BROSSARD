@@ -2,7 +2,7 @@
 
 Platform::Platform(sf::Vector2f pos) : m_position(pos)
 {
-	m_shape.setSize(sf::Vector2f(1920, 50));
+	m_shape.setSize(sf::Vector2f(1000, 50));
 	m_shape.setFillColor(sf::Color::Red);
 	m_shape.setPosition(m_position);
 	 
@@ -19,4 +19,9 @@ void Platform::draw(sf::RenderWindow& window) {
 
 sf::RectangleShape Platform::getShape() {
 	return m_shape;
+}
+
+void Platform::setSize(sf::Vector2f size)
+{
+	m_shape.setSize(size);
 }

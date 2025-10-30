@@ -32,32 +32,72 @@ ParallaxLayer::ParallaxLayer(const std::vector<std::string>& paths, float speedF
     if (m_textures.empty()) {
         throw std::runtime_error("No textures could be loaded for ParallaxLayer");
     }
+
+	init();
 }
+
+
+
 
 void ParallaxLayer::update(float cameraSpeed, float dt) {
     m_generationX += cameraSpeed * m_speedFactor * dt; //pas utilisé pour l'instant
 }
 
-void ParallaxLayer::draw(sf::RenderWindow& window, float cameraX, float cameraSpeed) {
-    float scaleFactor = 2.5f;
-    float scaledSegmentWidth = SEGMENT_WIDTH * scaleFactor;
-    float offsetX = cameraX * m_speedFactor;
-    int screenWidth = window.getSize().x;
+void ParallaxLayer::init() {
+    float W = SEGMENT_WIDTH * scaleFactor;
 
+    float startX = -W * 2;
     for (int i = 0; i < 8; ++i) {
-        sf::Sprite& sprite = m_spriteCache[i];
 
-        float screenX = i * scaledSegmentWidth - offsetX;
+        m_spriteCache[i].setScale(sf::Vector2f(scaleFactor, scaleFactor));
+        m_spriteCache[i].setPosition(sf::Vector2f(startX +i * W, m_y));
+    }
+}
+void ParallaxLayer::draw(sf::RenderWindow& window) {
+    // Largeur d’un segment en pixels écran
+    const float Wpx = SEGMENT_WIDTH * scaleFactor;
 
-        if (screenX + scaledSegmentWidth < 0) {
-            screenX += 8 * scaledSegmentWidth ;
-            std::cout << screenX << ' ' << cameraX << std::endl;
+    // Conversion pixels -> monde pour cette frame
+    sf::Vector2f world0 = window.mapPixelToCoords(sf::Vector2i(0, 0));
+    sf::Vector2f world1 = window.mapPixelToCoords(sf::Vector2i(1, 0));
+    float pxToWorld = world1.x - world0.x; // combien vaut 1 pixel écran en monde
+
+    float worldLeft = world0.x;
+    float Wworld = Wpx * pxToWorld;
+    float dxWorld = -m_speedFactor * (pxToWorld)/10; // déplacement en monde équivalent à m_speedFactor pixels écran
+
+    // 1. Déplacer tous les sprites (en monde, mais calé sur des pixels écran)
+    for (auto& sprite : m_spriteCache) {
+        sprite.move(sf::Vector2f(dxWorld, 0.f));
+    }
+
+    // 2. Trouver la position la plus à droite (en monde)
+    float maxX = -1e9f;
+    for (auto& sprite : m_spriteCache) {
+        if (sprite.getPosition().x > maxX)
+            maxX = sprite.getPosition().x;
+    }
+
+    // 3. Replacer uniquement les sprites sortis à gauche de l’écran
+    for (auto& sprite : m_spriteCache) {
+        if (sprite.getPosition().x + Wworld < worldLeft) {
+            sprite.setPosition(sf::Vector2f(maxX + Wworld, m_y));
+            maxX = sprite.getPosition().x;
         }
+    }
 
-        sprite.setPosition(sf::Vector2f(screenX, m_y));
+    // 4. Dessiner
+    for (auto& sprite : m_spriteCache) {
         window.draw(sprite);
     }
 }
+
+
+
+
+
+
+
 
 
 

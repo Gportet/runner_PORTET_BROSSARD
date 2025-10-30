@@ -36,6 +36,6 @@ private :
 	Player p;
 	ObjectManager manager;
 	Staross s;
-
+	Floor floor;
 };
 

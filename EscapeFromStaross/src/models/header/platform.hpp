@@ -19,5 +19,7 @@ public:
 	void draw(sf::RenderWindow& window);
 
 	sf::RectangleShape getShape();
+
+	void setSize(sf::Vector2f size);
 };
 
