@@ -14,7 +14,6 @@ ParallaxLayer::ParallaxLayer(const std::vector<std::string>& paths, float speedF
             std::cerr << "Échec chargement: " << p << std::endl;
         }
         else {
-            tex->setRepeated(true);
             m_textures.push_back(tex);
             std::cout << "OK: " << p 
                 << " size=" << tex->getSize().x
@@ -40,7 +39,7 @@ ParallaxLayer::ParallaxLayer(const std::vector<std::string>& paths, float speedF
 
 
 void ParallaxLayer::update(float cameraSpeed, float dt) {
-    m_generationX += cameraSpeed * m_speedFactor * dt; //pas utilisé pour l'instant
+    m_generationX += cameraSpeed * m_speedFactor * dt; // pas utilisé pour le moment
 }
 
 void ParallaxLayer::init() {
@@ -54,19 +53,17 @@ void ParallaxLayer::init() {
     }
 }
 void ParallaxLayer::draw(sf::RenderWindow& window) {
-    // Largeur d’un segment en pixels écran
     const float Wpx = SEGMENT_WIDTH * scaleFactor;
 
-    // Conversion pixels -> monde pour cette frame
     sf::Vector2f world0 = window.mapPixelToCoords(sf::Vector2i(0, 0));
     sf::Vector2f world1 = window.mapPixelToCoords(sf::Vector2i(1, 0));
-    float pxToWorld = world1.x - world0.x; // combien vaut 1 pixel écran en monde
+    float pxToWorld = world1.x - world0.x;
 
     float worldLeft = world0.x;
     float Wworld = Wpx * pxToWorld;
-    float dxWorld = -m_speedFactor * (pxToWorld)/10; // déplacement en monde équivalent à m_speedFactor pixels écran
+    float dxWorld = -m_speedFactor * (pxToWorld)/10;
 
-    // 1. Déplacer tous les sprites (en monde, mais calé sur des pixels écran)
+
     for (auto& sprite : m_spriteCache) {
         sprite.move(sf::Vector2f(dxWorld, 0.f));
     }
