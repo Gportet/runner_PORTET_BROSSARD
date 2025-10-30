@@ -2,8 +2,11 @@
 
 Platform::Platform(sf::Vector2f pos) : m_position(pos)
 {
-	m_shape.setSize(sf::Vector2f(1000, 50));
-	m_shape.setFillColor(sf::Color::Red);
+	if (!m_texture.loadFromFile("Assets/Textures/TileSet/IndustrialPack/1 Tiles/IndustrialTile_27.png")) {
+		throw std::runtime_error("Failed to load platform texture");
+	}
+	m_shape.setTexture(&m_texture);
+	m_shape.setSize(sf::Vector2f(1000, 100));
 	m_shape.setPosition(m_position);
 	 
 }

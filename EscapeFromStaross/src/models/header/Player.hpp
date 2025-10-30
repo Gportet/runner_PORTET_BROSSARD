@@ -10,6 +10,8 @@ class Player
 {
 private:
 	sf::RectangleShape m_shape;
+	sf::Texture m_jumpTexture;
+	sf::Texture m_fallTexture;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	sf::Vector2f m_speed;

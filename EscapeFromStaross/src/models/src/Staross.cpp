@@ -1,7 +1,10 @@
 #include "../header/Staross.hpp"
 
-Staross::Staross(sf::RenderWindow& w, Camera& c, Player& p) : window(w), camera(c), player(p)
+Staross::Staross(sf::RenderWindow& w, Camera& c, Player& p) : window(w), camera(c), player(p), m_texture()
 {
+    if (!m_texture.loadFromFile("Assets/Textures/staross.png")) {
+        throw std::runtime_error("Failed to load staross texture");
+    }
 	m_speed = sf::Vector2f(11,0);
     randomX(5, 10);
     updatePositionDestination();
@@ -13,20 +16,18 @@ void Staross::init() {
     float yMaxWindow = window.getSize().y;
     float spaceBetween = yMaxWindow / 7;
     sf::Vector2f pos = sf::Vector2f(100, 30);
-    for (size_t i = 0; i < 7; i++)
+    for (size_t i = 0; i < 5; i++)
     {
-        m_shapes.push_back(makeStar(pos, 40.f, 75.f, 7));
+        m_sprites.push_back(makeStar(pos, 40.f, 75.f, 7));
         pos.y += spaceBetween;
     }
     
 
 }
 
-//fonction pour créer les staross
-sf::ConvexShape Staross::makeStar(sf::Vector2f origin, float radiusCenter, float radiusOut, int points )
+sf::Sprite Staross::makeStar(sf::Vector2f origin, float radiusCenter, float radiusOut, int points )
 {
-    sf::ConvexShape star;
-    star.setPointCount(points * 2);
+    sf::Sprite star = sf::Sprite(m_texture);
 
     const float pi = 3.14159265f;
     for (int i = 0; i < points * 2; ++i)
@@ -34,16 +35,12 @@ sf::ConvexShape Staross::makeStar(sf::Vector2f origin, float radiusCenter, float
         float angle = i * pi / points - pi / 2; // -pi/2 pour orienter vers le haut
         float radius = (i % 2 == 0) ? radiusCenter : radiusOut;
         sf::Vector2f point(std::cos(angle) * radius, std::sin(angle) * radius);
-        star.setPoint(i, point);
     }
-
     // Style
-    star.setFillColor(sf::Color(68, 0, 211)); //violet
-    star.setOutlineColor(sf::Color::Black);
-    star.setOutlineThickness(2.f);
+    
+    star.setOrigin(star.getLocalBounds().getCenter());
 
     // Centrer autour de (0,0)
-    star.setOrigin(star.getGeometricCenter());
     star.setPosition(origin);
     return star;
 }
@@ -51,9 +48,9 @@ sf::ConvexShape Staross::makeStar(sf::Vector2f origin, float radiusCenter, float
 
 void Staross::rotate()
 {
-    for (auto& shape : m_shapes)
+    for (auto& sprite : m_sprites)
     {
-        shape.rotate(sf::degrees(m_speed.x));
+        sprite.rotate(sf::degrees(m_speed.x));
     }
 }
 
@@ -65,9 +62,9 @@ void Staross::update() {
 
 void Staross::draw() {
 
-	for (auto& shape : m_shapes)
+	for (auto& sprite : m_sprites)
 	{
-		window.draw(shape);
+		window.draw(sprite);
 	}
 }
 
@@ -96,7 +93,7 @@ void Staross::move()
 {
 
     updatePositionDestination();
-        float xInit = m_shapes[0].getPosition().x;
+        float xInit = m_sprites[0].getPosition().x;
 
     if ((m_direction > 0 && xInit >= m_posDestination) ||
         (m_direction < 0 && xInit <= m_posDestination))
@@ -105,14 +102,14 @@ void Staross::move()
         updatePositionDestination();
         m_direction = (xInit > m_posDestination) ? -1.f : 1.f;
     }
-    for (auto& shape : m_shapes)
+    for (auto& sprite : m_sprites)
     {
-        sf::Vector2f pos = shape.getPosition();
+        sf::Vector2f pos = sprite.getPosition();
 
         m_direction < 0 ? m_speed = sf::Vector2f(2, 0) : m_speed = sf::Vector2f(12,0);
         float step = m_speed.x * m_direction;
         pos.x += step;
-        shape.setPosition(pos);
+        sprite.setPosition(pos);
     }
 }
 

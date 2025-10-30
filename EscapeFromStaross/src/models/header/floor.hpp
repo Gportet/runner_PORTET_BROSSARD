@@ -10,8 +10,10 @@ public:
     float getY() const;
 
 private:
+    sf::Texture m_texture;
     float m_y;
     float m_segmentWidth;
     float m_segmentHeight;
     sf::RectangleShape m_shape;
+  
 };

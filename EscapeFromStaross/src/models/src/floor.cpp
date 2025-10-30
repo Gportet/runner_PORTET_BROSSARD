@@ -2,8 +2,11 @@
 
 Floor::Floor(float y, float segmentWidth, float segmentHeight) : m_y(y), m_segmentWidth(segmentWidth), m_segmentHeight(segmentHeight)
 {
+    if (!m_texture.loadFromFile("Assets/Textures/TileSet/IndustrialPack/1 Tiles/IndustrialTile_59.png")) {
+        throw std::runtime_error("Failed to load floor texture");
+    }
+    m_shape.setTexture(&m_texture);
     m_shape.setSize(sf::Vector2f(m_segmentWidth, m_segmentHeight));
-    m_shape.setFillColor(sf::Color::Green);
 }
 
 void Floor::draw(sf::RenderWindow& window)

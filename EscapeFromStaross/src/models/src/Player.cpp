@@ -1,10 +1,17 @@
 #include "../header/Player.hpp"
 
-Player::Player(sf::Vector2f position) : m_position(position), m_texture(), m_sprite(m_texture)
+Player::Player(sf::Vector2f position) : m_position(position),m_jumpTexture(), m_fallTexture(),  m_texture(), m_sprite(m_texture)
 {
 	if (!m_texture.loadFromFile("Assets/Textures/Player/characters/3 Cyborg/Cyborg_run.png")) {
 		throw std::runtime_error("Failed to load player texture");
 	}
+	if (!m_fallTexture.loadFromFile("Assets/Textures/Player/characters/3 Cyborg/Cyborg_jump.png")) {
+		throw std::runtime_error("Failed to load player texture");
+	}
+	if (!m_jumpTexture.loadFromFile("Assets/Textures/Player/characters/3 Cyborg/Cyborg_doublejump.png")) {
+		throw std::runtime_error("Failed to load player texture");
+	}
+	
 	m_shape = sf::RectangleShape(sf::Vector2f(75, 75));
 	m_speed = sf::Vector2f(5, 0);
 	max_speed = sf::Vector2f(10, 0);
@@ -21,11 +28,27 @@ Player::~Player()
 
 void Player::animate()
 {
+	int frameNb = 6;
+
+	if (m_verticalSpeed < -1.f) {
+		m_sprite.setTexture(m_jumpTexture);
+		frameNb = 6;
+	}
+
+	else if (m_verticalSpeed > 5.f) {
+		m_sprite.setTexture(m_fallTexture);
+		frameNb = 4;
+	}
+
+	else if (m_verticalSpeed == 0.f && m_isOnGround){
+		m_sprite.setTexture(m_texture);
+		frameNb = 6;
+	}
 	float elapsed = animationClock.getElapsedTime().asMilliseconds();
 	if (elapsed > 100.f) {
 		sf::IntRect rect = m_sprite.getTextureRect();
 		rect.position.x += 48;
-		if (rect.position.x >= 48 * 6) {
+		if (rect.position.x >= 48 * frameNb) {
 			rect.position.x = 0;
 		}
 		m_sprite.setTextureRect(rect);
@@ -42,6 +65,8 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms, Flo
 	m_verticalSpeed += m_gravity;
 	
 	if (m_verticalSpeed > 24) m_verticalSpeed = 24;
+
+	
 
 	m_position.y += m_verticalSpeed;
 

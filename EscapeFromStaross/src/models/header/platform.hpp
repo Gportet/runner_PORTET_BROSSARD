@@ -5,10 +5,10 @@
 class Platform
 {
 private:
-
+	sf::Texture m_texture;
 	sf::Vector2f m_position;
 	sf::RectangleShape m_shape;
-	int floorInt;
+	int floorInt = 0;
 
 public:
 
