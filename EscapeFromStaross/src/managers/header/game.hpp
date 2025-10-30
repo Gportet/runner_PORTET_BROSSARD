@@ -21,8 +21,6 @@ public:
 
 	void platformManager();
 
-	void obstacleManager();
-
 	void draw();
 
 	void detectCollisions();
@@ -43,7 +41,7 @@ private :
 	Player p;
 	ObjectManager objManager;
 	Staross s;
-
+	bool gameOver = false;
 
 	sf::Font font;
 	sf::Text resumeText;

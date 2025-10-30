@@ -17,6 +17,8 @@ public :
 	void update();
 	void checkCollisions();
 	void addCailloux(std::unique_ptr<Cailloux> c);
+	void addObstacle(std::unique_ptr<Obstacle> o);
 	void draw();
+	std::vector<std::unique_ptr<Obstacle>>& getObstacles() { return obstacles; }
 };
 

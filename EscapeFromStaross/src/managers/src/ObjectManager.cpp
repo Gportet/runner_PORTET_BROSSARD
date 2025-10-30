@@ -18,6 +18,8 @@ void ObjectManager::draw()
 {
 	for (auto& c : cailloux)
 		c->draw(m_window);
+    for (auto& o : obstacles)
+        o->draw(m_window);
 }
 
 void ObjectManager::checkCollisions()
@@ -32,14 +34,21 @@ void ObjectManager::checkCollisions()
     {
         for (size_t i = 0; i < cailloux.size(); i++)
         {
+            int it = 0;
             // collision avec obstacles
-            for (auto& o : obstacles)
+            for (auto it = obstacles.begin(); it != obstacles.end(); )
             {
-                if (cailloux[i]->getGlobalBounds().findIntersection(o->getGlobalBounds()))
+                if (cailloux[i]->getGlobalBounds().findIntersection((*it)->getGlobalBounds()))
                 {
                     cailloux[i]->collision();
+                    it = obstacles.erase(it); // renvoie le prochain élément valide
+                }
+                else
+                {
+                    ++it;
                 }
             }
+
 
             // collision avec mur droit
             sf::FloatRect bounds = cailloux[i]->getGlobalBounds();
@@ -61,4 +70,9 @@ void ObjectManager::checkCollisions()
 void ObjectManager::addCailloux(std::unique_ptr<Cailloux> c)
 {
 	cailloux.push_back(std::move(c));
+}
+
+void ObjectManager::addObstacle(std::unique_ptr<Obstacle> o)
+{
+    obstacles.push_back(std::move(o));
 }
