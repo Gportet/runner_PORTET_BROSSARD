@@ -180,47 +180,43 @@ void Player::timerHandle()
 }
 
 
-void Player::handleInput(const sf::Event& event, ObjectManager& manager)
-{
-	if (auto keyPressed = event.getIf<sf::Event::KeyPressed>() ) {
-		switch (keyPressed->scancode)
-		{
-		case sf::Keyboard::Scan::W:
-			if (m_isOnGround && !m_wantsToDrop) {
-				m_verticalSpeed = m_jumpSpeed;
-				m_isOnGround = false;
-			}
-			break;
-		case sf::Keyboard::Scan::S:
-			if (m_position.y < 700) {
-				m_wantsToDrop = true;
-				m_isOnGround = false;
-				m_dropTimer = 10;
-			}
-			break;
-		case sf::Keyboard::Scan::E:
-			if (hadProj() && m_projTimer <= 0.f)
-			{
-				throwObject(manager);
-				suppProj();
-			}
-			break;
-		case sf::Keyboard::Scan::LControl:
-			slide();
-			break;
-		case sf::Keyboard::Scan::Space:
-			if (m_isOnGround && !m_wantsToDrop) {
-				m_verticalSpeed = m_jumpSpeed;
-				m_isOnGround = false;
-			}
-			break;
-		case sf::Keyboard::Scan::D :
-			dash();
-			break;
-		default:
-			break;
+void Player::handleInput(ObjectManager& manager)
+ {
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+		if (m_isOnGround && !m_wantsToDrop) {
+			m_verticalSpeed = m_jumpSpeed;
+			m_isOnGround = false;
 		}
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+		if (m_position.y < 700) {
+			m_wantsToDrop = true;
+			m_isOnGround = false;
+			m_dropTimer = 10;
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+		if (hadProj() && m_projTimer <= 0.f)
+		{
+			throwObject(manager);
+			suppProj();
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
+		slide();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+		if (m_isOnGround && !m_wantsToDrop) {
+			std::cout << "jump";
+			m_verticalSpeed = m_jumpSpeed;
+			m_isOnGround = false;
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+		dash();
+	}
+	
 }
 
 sf::Vector2f Player::getPosition() {

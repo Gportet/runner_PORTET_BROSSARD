@@ -75,6 +75,7 @@ void Staross::randomX(float min, float max)
     float r = dist(rng);
     //permet au aller-retour de ne pas etre trop petit
     abs(m_randomPercentage - r) < 10 ? r += 10*m_direction : r;
+    r >= 50 ? r = 50 : r;
     m_randomPercentage = r;
 }
 

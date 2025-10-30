@@ -11,9 +11,9 @@ class Game
 {
 
 public:
-	sf::RenderWindow window;
+	sf::RenderWindow& window;
 
-	Game();
+	Game(sf::RenderWindow& window);
 
 	void update();
 
@@ -26,6 +26,13 @@ public:
 	void draw();
 
 	void detectCollisions();
+
+	void paused() { isPaused = !isPaused; }
+	bool menuPause() { return isPaused; }
+	void displayPauseMenu(sf::RenderWindow& window);
+	void initPauseMenu();
+	void adaptMenu();
+
 private :
 	sf::Clock clock;
 
@@ -34,8 +41,16 @@ private :
 	ParallaxManager parallax;
 	Camera camera;
 	Player p;
-	ObjectManager manager;
+	ObjectManager objManager;
 	Staross s;
-	Floor floor;
+
+
+	sf::Font font;
+	sf::Text resumeText;
+	sf::Text exitText;
+	sf::RectangleShape m_buttonResume;
+	sf::RectangleShape m_buttonQuit;
+	bool isPaused = false;
+
 };
 
