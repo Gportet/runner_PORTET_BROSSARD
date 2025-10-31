@@ -53,7 +53,7 @@ void Game::update()
     platformManager();
     p.update(map.platforms, floor);
     s.update();
-    hud.update(30, (p.getPosition().x - 300));
+    hud.update(p.getProjCount(), (p.getPosition().x - 300));
     objManager.update();
     objManager.draw();
     draw();
@@ -170,16 +170,14 @@ void Game::detectCollisions()
     }
 
     // Collision avec les hitboxes des étoiles (Staross)
-    const auto& hitboxes = s.getHitboxes();
-    for (size_t i = 0; i < hitboxes.size(); ++i) {
-        if (p.getShape().getGlobalBounds().findIntersection(hitboxes[i].getGlobalBounds()))
-        {
-            m_gameOver = true;
-            break;
-        }
-    }
+	sf::FloatRect starossBounds = s.getSprite().getGlobalBounds();
 
+    if (p.getSprite().getGlobalBounds().findIntersection(starossBounds))
+    {
+       m_gameOver = true;
+    }
 }
+
 void Game::displayGameOverMenu(sf::RenderWindow& window)
 {
     adaptMenu();

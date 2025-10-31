@@ -40,7 +40,7 @@ public:
 	Player(sf::Vector2f position);
 	~Player();
 
-
+	int getProjCount();
 	void animate();
 	void update(const std::vector<std::unique_ptr<Platform>>& platforms, Floor& floor);
 	void addProj();
@@ -52,6 +52,7 @@ public:
 	void setPos(sf::Vector2f pos) { m_position = pos; }
 	sf::Vector2f getPosition();
 	sf::RectangleShape getShape();
+	sf::Sprite getSprite();
 
 	sf::Vector2f getSpeed();
 	sf::Vector2f getMaxSpeed();

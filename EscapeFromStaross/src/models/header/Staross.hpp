@@ -11,9 +11,11 @@ class Staross
 private:
 	sf::Texture m_texture;
 	sf::Vector2f m_speed;
-	std::vector<sf::Sprite> m_sprites;
+	sf::Sprite m_sprite;
+	sf::RectangleShape m_hitbox;
+
 	// Hitboxes séparées (approximation circulaire pour chaque étoile)
-	std::vector<sf::CircleShape> m_hitboxes;
+	//std::vector<sf::CircleShape> m_hitboxes;
 
 	float m_direction = 1;
 	float m_posDestination;
@@ -29,15 +31,17 @@ public:
 	void update();
 	void draw();
 	void move();
-	sf::Sprite makeStar(sf::Vector2f origin, float radiusCenter, float radius, int points);
+	//sf::Sprite makeStar(sf::Vector2f origin, float radiusCenter, float radius, int points);
 	void randomX(float min, float max);
-	void rotate();
+	//void rotate();
 	void init();
 	void updatePositionDestination();
 	void reset();
-	std::vector<sf::Sprite> getStars() { return m_sprites; }
+
+	sf::Sprite getSprite();
+	//std::vector<sf::Sprite> getStars() { return m_sprites; }
 
 	// Accès aux hitboxes (const ref pour éviter copies)
-	const std::vector<sf::CircleShape>& getHitboxes() const { return m_hitboxes; }
+	//const std::vector<sf::CircleShape>& getHitboxes() const { return m_hitboxes; }
 };
 

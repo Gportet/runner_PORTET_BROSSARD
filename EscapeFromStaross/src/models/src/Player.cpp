@@ -44,6 +44,11 @@ void Player::reset()
 
 }
 
+int Player::getProjCount()
+{
+	return m_projectiles;
+}
+
 void Player::animate()
 {
 	int frameNb = 6;
@@ -132,6 +137,10 @@ void Player::update(const std::vector<std::unique_ptr<Platform>>& platforms, Flo
 			m_canDash = true;
 		}
 	}
+
+	if (m_projTimer > 0.f) {
+		m_projTimer -= 1.f;
+	}
 }
 
 
@@ -186,8 +195,10 @@ void Player::handleInput(ObjectManager& manager)
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+		std::cout << "Proj timer: " << m_projTimer << std::endl;
 		if (hadProj() && m_projTimer <= 0.f)
 		{
+			std::cout << "Throw projectile" << std::endl;
 			throwObject(manager);
 			suppProj();
 		}
@@ -210,6 +221,10 @@ sf::Vector2f Player::getPosition() {
 
 sf::RectangleShape Player::getShape() {
 	return m_shape;
+}
+
+sf::Sprite Player::getSprite() {
+	return m_sprite;
 }
 
 sf::Vector2f Player::getSpeed()
