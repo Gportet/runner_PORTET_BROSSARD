@@ -26,6 +26,8 @@ void Generator::generate(ObjectManager& objManager, std::vector<std::unique_ptr<
             objManager.addObstacle(std::make_unique<TrashCan>(pos));
         }
     }
+    float probToSpawnOnFirstFloor = rand() % 2;
+    if (probToSpawnOnFirstFloor == 0) objManager.addObstacle(std::make_unique<TrashCan>(sf::Vector2f(nextGenX + 100, 690)));
     nextGenX += m_chunkWidth;
 }
 

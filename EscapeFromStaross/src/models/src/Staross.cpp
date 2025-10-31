@@ -17,7 +17,7 @@ Staross::Staross(sf::RenderWindow& w, Camera& c, Player& p) : window(w), camera(
 	sf::FloatRect lb = m_sprite.getLocalBounds();
     m_sprite.setOrigin(sf::Vector2f(lb.size.x / 2, lb.size.y /2));
 
-    m_hitbox.setSize(sf::Vector2f(sb.size.x, sb.size.y));
+    m_hitbox.setSize(sf::Vector2f(sb.size.x - 50, sb.size.y));
     m_hitbox.setOrigin(sf::Vector2f(sb.size.x / 2, sb.size.y / 2));
 
     m_hitbox.setFillColor(sf::Color(0, 0, 0, 0));
@@ -34,7 +34,7 @@ void Staross::init() {
 
     float yMaxWindow = window.getSize().y;
     //float spaceBetween = yMaxWindow / 7;
-    sf::Vector2f pos = sf::Vector2f(10, 450);
+    sf::Vector2f pos = sf::Vector2f(-200, 450);
 	m_sprite.setPosition(pos);
 }
 
@@ -101,6 +101,7 @@ void Staross::draw() {
 	}*/
 
     window.draw(m_sprite);
+    window.draw(m_hitbox);
 
 
 	// Pour debug, dessiner les hitboxes (elles sont transparentes par défaut)

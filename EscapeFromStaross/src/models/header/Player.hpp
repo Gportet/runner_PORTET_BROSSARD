@@ -30,9 +30,9 @@ private:
 	bool m_wantsToDrop = false;
 	int m_dropTimer = 0;
 
-	float m_dashDistance = 100.f;
+	float m_dashDistance = 200.f;
 	bool m_canDash = true;
-	float m_dashCooldown = 1.0f;
+	float m_dashCooldown = 4.0f;
 
 	sf::Clock animationClock;
 public:
