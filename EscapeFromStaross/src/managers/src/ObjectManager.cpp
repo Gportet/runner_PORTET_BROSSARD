@@ -10,6 +10,16 @@ void ObjectManager::update()
 	for (auto& c : cailloux) {
 		c->update();
 	}
+
+    for (auto it = obstacles.begin(); it != obstacles.end(); ) {
+        sf::FloatRect bounds = (*it)->getGlobalBounds();
+        if (bounds.position.x + bounds.size.x < m_camera.getView().getCenter().x - m_camera.getView().getSize().x / 2.f) {
+            it = obstacles.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
 	checkCollisions();
 }
 
