@@ -7,7 +7,6 @@ ParallaxLayer::ParallaxLayer(const std::vector<std::string>& paths, float speedF
         throw std::runtime_error("No paths provided for ParallaxLayer");
     }
 
-    m_textures.reserve(m_paths.size());
     for (const auto& p : m_paths) {
         auto tex = std::make_shared<sf::Texture>();
         if (!tex->loadFromFile(p)) {
