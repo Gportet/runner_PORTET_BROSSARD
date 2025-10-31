@@ -35,10 +35,22 @@ ParallaxLayer::ParallaxLayer(const std::vector<std::string>& paths, float speedF
 	init();
 }
 
-void ParallaxLayer::reset() {
-    m_generationX = 0.f;
-    m_offsetX = 0.f;
-    init();
+void ParallaxLayer::reset(sf::RenderWindow& window) {
+    const float Wpx = SEGMENT_WIDTH * scaleFactor;
+
+    sf::Vector2f world0 = window.mapPixelToCoords(sf::Vector2i(0, 0));
+    sf::Vector2f world1 = window.mapPixelToCoords(sf::Vector2i(1, 0));
+    float pxToWorld = world1.x - world0.x;
+
+    float Wworld = Wpx * pxToWorld;
+
+    float marginFactor = 5.0f;
+    float startWorldX = world0.x - Wworld * m_spriteCache.size() * marginFactor;
+
+    for (size_t i = 0; i < m_spriteCache.size(); ++i) {
+        float x = startWorldX + i * Wworld;
+        m_spriteCache[i].setPosition(sf::Vector2f(x, m_y));
+    }
 }
 
 
@@ -90,10 +102,6 @@ void ParallaxLayer::draw(sf::RenderWindow& window) {
         window.draw(sprite);
     }
 }
-
-
-
-
 
 
 

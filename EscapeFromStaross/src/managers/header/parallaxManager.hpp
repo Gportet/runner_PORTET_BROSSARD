@@ -14,6 +14,6 @@ public:
     void update(float cameraSpeed, float dt);
 
     void draw(sf::RenderWindow& window);
-    void reset();
+    void reset(sf::RenderWindow& window);
     void init();
 };

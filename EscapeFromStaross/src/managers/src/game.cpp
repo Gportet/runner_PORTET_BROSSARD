@@ -21,8 +21,7 @@ void Game::reset() {
     map.platforms.clear();
 
 
-    parallax.reset();
-    parallax.init();
+    parallax.reset(window);
 
 
 	generator.reset();
